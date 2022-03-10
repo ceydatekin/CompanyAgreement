@@ -8,12 +8,7 @@ namespace CompanyAgreement.Models
         //{
 
         //}
-        public Context (DbContextOptions<Context> options)
-            : base(options) { }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<CompanyDepartment>().HasKey(sc => new { sc.DepartmentId, sc.CompanyId });
-        }
+   
         public DbSet<Company> Companies { get; set; }
         public DbSet<AdminLogin> AdminLogins { get; set; }
         public DbSet<CompanyAuthority> CompanyAuthorities { get; set; }
@@ -23,7 +18,17 @@ namespace CompanyAgreement.Models
         public DbSet<ContractInformation> ContractInformation { get; set; }
         public DbSet<ContractSituation> ContractSituation { get; set; }
 
+        public Context(DbContextOptions<Context> options)
+       : base(options) { }
 
+        public Context()
+        {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CompanyDepartment>().HasKey(sc => new { sc.DepartmentId, sc.CompanyId });
+        }
 
     }
 }
