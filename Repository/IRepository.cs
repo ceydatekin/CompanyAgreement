@@ -21,7 +21,7 @@ namespace CompanyAgreement.Repository
         {
             return context.Set<T>().ToList();
         }
-
+  
         public T Insert(T entity)
         {
 
