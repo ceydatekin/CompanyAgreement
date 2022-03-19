@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="AdminLTE-3.0.4\.github\ISSUE_TEMPLATE\bug-report-for-adminlte-v2-4-x.md" />
+    <None Include="AdminLTE-3.0.4\.github\ISSUE_TEMPLATE\bug-report-for-adminlte-v3-x.md" />
+    <None Include="AdminLTE-3.0.4\.github\ISSUE_TEMPLATE\feature-request-for-adminlte-v3-x.md" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.14">
       <PrivateAssets>all</PrivateAssets>
