@@ -1,5 +1,6 @@
 ﻿using CompanyAgreement.Manager;
 using CompanyAgreement.Models;
+using CompanyAgreement.modelview;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -12,10 +13,26 @@ namespace CompanyAgreement.Controllers
         CantractSituationManager cantractSituationManager = new CantractSituationManager();
         ContractInformationManager contractInformationManager = new ContractInformationManager();
         CompanyInformationManager companyInformationManager = new CompanyInformationManager();
+        CompanyDepartmantManager companyDepartmantManager = new CompanyDepartmantManager();
+        CompanyAuthorityManager companyAuthorityManager = new CompanyAuthorityManager();
 
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult ListCompany()
+        {
+            var companyListViewModel = new CompanyListViewModel();
+            companyListViewModel.Company = companyManager.AllCompanies();
+            companyListViewModel.CompanyDepartment = companyDepartmantManager.AllCompaniesDepartment();
+            companyListViewModel.CompanyInformation = companyInformationManager.AllCompanyInformation();
+            companyListViewModel.CompanyAuthority = companyAuthorityManager.AllCompanyAuthority();
+            companyListViewModel.ContractSituation = cantractSituationManager.AllCantractSituation();
+        
+            return View(companyListViewModel);  
+
+      
         }
 
         //Firma Giriş Sayfasındaki Form veri tabanına ekleme API'si

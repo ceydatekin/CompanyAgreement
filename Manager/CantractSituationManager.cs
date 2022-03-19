@@ -9,5 +9,7 @@ namespace CompanyAgreement.Manager
 {
     public class CantractSituationManager : IRepository<ContractSituation>
     {
+        Context contextManager = ContextManager.GetContext();
+        public List<ContractSituation> AllCantractSituation() => this.contextManager.ContractSituation.ToList();
     }
 }
