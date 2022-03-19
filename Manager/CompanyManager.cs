@@ -11,8 +11,11 @@ namespace CompanyAgreement.Manager
     public class CompanyManager : IRepository<Company>
     {
 
-        //Context contextManager = ContextManager.GetContext();
-      //  public IEnumerable<Company> Find(Expression<Func<Company, bool>> predicate) =>this.contextManager.Companies.Where(e => e.ContractSituation.Situation == "olumlu").ToList();
+        Context contextManager = ContextManager.GetContext();
+        public IEnumerable<Company> Find(Expression<Func<Company, bool>> predicate) => this.contextManager.Companies.Where(e => e.ContractSituation.Situation == "olumlu").ToList();
+
+
+        public List<Company> AllCompanies() => this.contextManager.Companies.ToList();
       
     }
 }
