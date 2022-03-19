@@ -1,4 +1,5 @@
 ﻿using CompanyAgreement.Manager;
+using CompanyAgreement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace CompanyAgreement.Repository
     {
 
         Models.Context context = ContextManager.GetContext();
-
+        //Context context = Context.getNesne();
+        //Context context = new Context();   
 
         public T GetById(Expression<Func<T, bool>> predicate)
         {
@@ -25,7 +27,9 @@ namespace CompanyAgreement.Repository
         public T Insert(T entity)
         {
 
-            context.Set<T>().Add(entity);
+           // context.Add(entity);
+           //context.Add(entity);
+          context.Set<T>().Add(entity);
             Save();
             return entity;
 
@@ -41,7 +45,8 @@ namespace CompanyAgreement.Repository
         }
         public void Save()
         {
-            context.SaveChanges();
+            //context.SaveChanges();
+            context.SaveChangesAsync();
             //Microsoft.Data.SqlClient.SqlException
 
 

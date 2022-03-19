@@ -8,8 +8,10 @@ namespace CompanyAgreement.Controllers
 {
     public class AdminController : Controller
     {
-        CompanyManager companyManager = new CompanyManager();   
-
+        CompanyManager companyManager = new CompanyManager();
+        CantractSituationManager cantractSituationManager = new CantractSituationManager();
+        ContractInformationManager contractInformationManager = new ContractInformationManager();
+        CompanyInformationManager companyInformationManager = new CompanyInformationManager();
 
         public IActionResult Index()
         {
@@ -22,21 +24,39 @@ namespace CompanyAgreement.Controllers
         public string addCompany([FromForm] addCompanyModel model)
         {
 
+
+
             {
 
-                _ = companyManager.Insert(new Models.Company()
+                companyManager.Insert(new Models.Company()
                 {
                     CompanyName = model.CompanyName,
-                    ContractSituation = model.contractsituation,
                     MeetingDate = model.MeetingDate,
                     PublicPrivate = model.PublicPrivate,
-                    ContractInformation = model.ContractInformation,
-                    CompanyInformation = model.CompanyInformation
-
-
-
                 });
-               
+                cantractSituationManager.Insert(new Models.ContractSituation()
+                {
+                    Situation = model.Situations,
+                    Description = model.Description
+                });
+                companyInformationManager.Insert(new Models.CompanyInformation()
+                {
+                    Mail = model.CompanyInformation_mail,
+                     
+                    GSM = model.CompanyInformation_GSM,
+                    Name = model.CompanyInformation_Name,
+                    Surname = model.CompanyInformation_Surname,
+                });
+                contractInformationManager.Insert(new Models.ContractInformation(){
+                     Mail = model.ContractInformation_Mail,
+                     GSM= model.ContractInformation_Gsm,
+                     Address = model.ContractInformation_Adress,
+                     Province = model.ContractInformation_Province,
+                     District= model.ContractInformation_District,
+                        
+                });
+                    
+
                 return JsonConvert.SerializeObject(new { success = true, message = "Tebrikler" });
 
             }
@@ -47,10 +67,19 @@ namespace CompanyAgreement.Controllers
             public string CompanyName { get; set; }
             public DateTime MeetingDate { get; set; }
             public bool PublicPrivate { get; set; }
-            public ContractSituation contractsituation { get; set; }
-            public ContractInformation ContractInformation { get; set; } 
-            public CompanyInformation CompanyInformation { get; set; } 
-  
+            public string Situations { get; set; }
+            public string Description { get; set; }
+            public string CompanyInformation_mail { get; set; }
+            public string CompanyInformation_GSM { get; set; }
+            public string CompanyInformation_Name { get; set; }
+            public string CompanyInformation_Surname { get; set; }
+
+            public string ContractInformation_Adress { get; set; }
+            public string ContractInformation_Province { get; set; }
+            public string ContractInformation_District { get; set; }
+            public string ContractInformation_Mail { get; set; }
+            public string ContractInformation_Gsm { get; set; }
+
         }
 
 

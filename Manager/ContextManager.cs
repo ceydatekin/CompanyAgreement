@@ -9,9 +9,10 @@
         }
         public static Models.Context GetContext()
         {
-            if (context == null)
+            if (null == context)
+            {
                 context = new Models.Context();
-
+            }
             return context;
         }
     }

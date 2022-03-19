@@ -27,12 +27,17 @@ namespace CompanyAgreement
         {
             services.AddControllersWithViews();
             services.AddDbContext<Context>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("CompanyAggrementContext")));
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("CompanyAggrementContext"));
+            });
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SwaggerSetupExample", Version = "v1" });
             });
         }
+     
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -55,7 +60,8 @@ namespace CompanyAgreement
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SwaggerSetupExample v1"));
             }
-            app.UseSwaggerUI(c => {
+            app.UseSwaggerUI(c =>
+            {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SwaggerSetupExample v1");
                 c.RoutePrefix = "path-to-swagger";
             });
@@ -66,5 +72,7 @@ namespace CompanyAgreement
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+   
+
     }
 }
