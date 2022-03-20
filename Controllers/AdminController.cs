@@ -81,12 +81,12 @@ namespace CompanyAgreement.Controllers
 
         public class addCompanyModel
         {
-            public string CompanyName { get; set; }
-            public DateTime MeetingDate { get; set; }
-            public bool PublicPrivate { get; set; }
-            public string Situations { get; set; }
-            public string Description { get; set; }
-            public string CompanyInformation_mail { get; set; }
+            public string CompanyName { get; set; }//yapıldı
+            public DateTime MeetingDate { get; set; }//yapıldı
+            public bool PublicPrivate { get; set; }//yapıldı
+            public string Situations { get; set; }//yapıldı
+            public string Description { get; set; }//website olarak alındı
+            public string CompanyInformation_mail { get; set; }//yapıldı
             public string CompanyInformation_GSM { get; set; }
             public string CompanyInformation_Name { get; set; }
             public string CompanyInformation_Surname { get; set; }
