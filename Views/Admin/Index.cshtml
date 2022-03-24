@@ -173,10 +173,53 @@
           
           <!-- /.col (right) -->
         </div>
-         <button type="button" class="btn btn-info swalDefaultInfo">
+         <button type="button" id="companyadd" class="btn btn-info swalDefaultInfo">
                     Firma Ekle
             </button>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+    <script>
+    $('body').on('click', '#companyadd', function () {
+        ////
+        var CompanyName = $('#CompanyName').val();
+        var MeetingDate = $('#MeetingDate').val();
+        var PublicPrivate = $('#PublicPrivate').val();
+        var Situation = $('#Situation').val();
+        var Description = $('#Description').val();
+        var CompanyInformation_mail = $('#CompanyInformation_mail').val();
+        var CompanyInformation_GSM = $('#CompanyInformation_GSM').val();
+        var CompanyInformation_Name = $('#CompanyInformation_Name').val();
+        var CompanyInformation_Surname = $('#CompanyInformation_Surname').val();
+        var ContractInformation_Adress = $('#ContractInformation_Adress').val();
+        var ContractInformation_Province = $('#ContractInformation_Province').val();
+        var ContractInformation_District = $('#ContractInformation_District').val();
+        var ContractInformation_Mail = $('#ContractInformation_Mail').val();
+        var ContractInformation_Gsm = $('#ContractInformation_Gsm').val();
+        var formdata = new FormData();
+        formdata.append('CompanyName', CompanyName);
+        formdata.append('soyad', soyad);
+        formdata.append('telno', telno);
+        console.log("eklemei is şladmlas")
+        $.ajax({
+            url: '/API/AddCompany',
+            method: 'post',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (resp) {
+                console.log(resp)
+                var jsonResp = JSON.parse(resp);
+                console.log(jsonResp)
+                if (jsonResp.success == true)
+                    alert(jsonResp.message)
+                else if (jsonResp.success == false)
+                    console.log("ogretmen eklenirken hata olust")
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        });
+    });
+</script>
