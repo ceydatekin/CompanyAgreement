@@ -19,36 +19,40 @@ namespace CompanyAgreement.Repository
         {
             return context.Set<T>().SingleOrDefault(predicate);
         }
-        public IEnumerable<T> GetAll()
+        public  IEnumerable<T> GetAll()
         {
             return context.Set<T>().ToList();
         }
-  
+    
         public T Insert(T entity)
         {
-
-           // context.Add(entity);
-           //context.Add(entity);
-          context.Set<T>().Add(entity);
+            context.Set<T>().Add(entity);
             Save();
+            return entity;  
+        }
+
+        public async Task<T> InsertAsync(T entity)
+        {
+
+            //var item = map<T>(entity);
+            await context.Set<T>().AddAsync(entity);
+            await context.SaveChangesAsync();
             return entity;
 
         }
-        public void Update(T entity)
+        public  void Update(T entity)
         {
 
         }
-        public void Delete(T entity)
+        public  void Delete(T entity)
         {
             context.Set<T>().Remove(entity);
             Save();
         }
         public void Save()
         {
-            //context.SaveChanges();
-            context.SaveChangesAsync();
-            //Microsoft.Data.SqlClient.SqlException
 
+            context.SaveChangesAsync();
 
 
         }

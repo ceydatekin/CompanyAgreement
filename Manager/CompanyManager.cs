@@ -13,9 +13,9 @@ namespace CompanyAgreement.Manager
 
         Context contextManager = ContextManager.GetContext();
         public IEnumerable<Company> Find(Expression<Func<Company, bool>> predicate) => this.contextManager.Companies.Where(e => e.ContractSituation.Situation == "olumlu").ToList();
-        public Company GetId(string CompnayName)
+        public Company GetId(int companyId)
         {
-            return contextManager.Companies.SingleOrDefault(s => s.CompanyName == CompnayName);
+            return contextManager.Companies.SingleOrDefault(s => s.Id == companyId);
         }
         public List<Company> AllCompanies() => this.contextManager.Companies.ToList();
       

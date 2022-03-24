@@ -15,6 +15,7 @@ namespace CompanyAgreement.Controllers
         CompanyInformationManager companyInformationManager = new CompanyInformationManager();
         CompanyDepartmantManager companyDepartmantManager = new CompanyDepartmantManager();
         CompanyAuthorityManager companyAuthorityManager = new CompanyAuthorityManager();
+        DepartmantManager departmantManager = new DepartmantManager();  
 
         public IActionResult Index()
         {
@@ -100,13 +101,18 @@ namespace CompanyAgreement.Controllers
         [Route("API/AddQuota")]
         public string addQuota([FromForm] addQuotaModel model)
         {
+         
             {
-                Company company = new Company();
-                company = companyManager.GetId(model.CompanyName);
-                CompanyDepartment companyDepartment = new CompanyDepartment();
-                companyDepartment = companyDepartmantManager.GetQuota(company.Id);
-                companyDepartmantManager.UpdateQuota(company.Id);
 
+                companyDepartmantManager.InsertAsync(new Models.CompanyDepartment()
+                {
+                    Company = companyManager.GetId(model.CompanyId),
+                    Department = departmantManager.GetId(model.DepartmentId),
+                    CompanyId = model.CompanyId,
+                    DepartmentId = model.DepartmentId,
+                    Amount = model.Amount,
+                   
+                });
                 return JsonConvert.SerializeObject(new { success = true, message = "Tebrikler" });
 
             }
@@ -114,7 +120,9 @@ namespace CompanyAgreement.Controllers
 
         public class addQuotaModel
         {
-            public string CompanyName { get; set; }
+            public int CompanyId { get; set; }
+            public int DepartmentId{ get; set; }
+            public int Amount { get; set; } 
 
 
         }

@@ -94,6 +94,9 @@ namespace CompanyAgreement.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
                     b.HasKey("DepartmentId", "CompanyId");
 
                     b.HasIndex("CompanyId");
@@ -233,7 +236,7 @@ namespace CompanyAgreement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Department");
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("CompanyAgreement.Models.Company", b =>
