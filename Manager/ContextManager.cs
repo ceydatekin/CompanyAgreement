@@ -9,7 +9,7 @@
         }
         public static Models.Context GetContext()
         {
-            if (null == context)
+            if (context == null)
             {
                 context = new Models.Context();
             }
