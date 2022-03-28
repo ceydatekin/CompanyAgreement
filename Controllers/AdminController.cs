@@ -49,6 +49,7 @@ namespace CompanyAgreement.Controllers
                     CompanyName = model.CompanyName,
                     MeetingDate = model.MeetingDate,
                     PublicPrivate = model.PublicPrivate,
+                    
                 });
                 cantractSituationManager.Insert(new Models.ContractSituation()
                 {
