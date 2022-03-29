@@ -17,7 +17,7 @@ namespace CompanyAgreement.Models
         public string Mail { get; set; }
         public string GSM { get; set; }
 
-        public int CompanyId { get; set; }
-        public Company Company { get; set; }    
+       // public int CompanyId { get; set; }
+       // public Company Company { get; set; }    
 }
 }

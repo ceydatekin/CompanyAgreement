@@ -1,5 +1,4 @@
 ﻿using CompanyAgreement.Models;
-using CompanyAgreement.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;

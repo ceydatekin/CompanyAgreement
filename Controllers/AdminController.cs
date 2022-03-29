@@ -105,7 +105,7 @@ namespace CompanyAgreement.Controllers
          
             {
 
-                companyDepartmantManager.InsertAsync(new Models.CompanyDepartment()
+                companyDepartmantManager.Insert(new Models.CompanyDepartment()
                 {
                     Company = companyManager.GetId(model.CompanyId),
                     Department = departmantManager.GetId(model.DepartmentId),

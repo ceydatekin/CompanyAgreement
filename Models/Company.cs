@@ -14,9 +14,9 @@ namespace CompanyAgreement.Models
         //Company information 1-1
         public virtual CompanyInformation CompanyInformation { get; set; }
         //Contract situation 1-1
-        public virtual ContractSituation ContractSituation { get; set; }
+       // public virtual ContractSituation ContractSituation { get; set; }
         //Department n-n
-        public virtual ContractInformation ContractInformation { get; set; }
+       // public virtual ContractInformation ContractInformation { get; set; }
         public ICollection<CompanyDepartment> CompanyDepartments { get; set; }
 
     }
