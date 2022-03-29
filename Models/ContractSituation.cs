@@ -12,10 +12,10 @@ namespace CompanyAgreement.Models
         [Column(TypeName = "Varchar")]
         [StringLength(50)]
         public string Description{ get; set; }
-        public int CompanyId { get; set; }
-        public Company Company { get; set; }
-        public int CompanyAuthorityId { get; set; }
-        public CompanyAuthority CompanyAuthority { get; set; }
+       // public int CompanyId { get; set; }
+       // public Company Company { get; set; }
+       // public int CompanyAuthorityId { get; set; }
+       // public CompanyAuthority CompanyAuthority { get; set; }
     }
 }
 
