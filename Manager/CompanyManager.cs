@@ -12,7 +12,20 @@ namespace CompanyAgreement.Manager
     {
 
         Context contextManager = ContextManager.GetContext();
-        public IEnumerable<Company> Find(Expression<Func<Company, bool>> predicate) => this.contextManager.Companies.ToList();
+      //  public IEnumerable<Company> Find(Expression<Func<Company, bool>> predicate) => this.contextManager.Companies.Where().ToList();
+      public void AddCompany(string CompanyName, DateTime MeetingDate, bool PublicPrivate, int CompanyInformationId)
+        {
+            Insert(new Models.Company()
+            {
+                CompanyName = CompanyName,
+                MeetingDate = MeetingDate,
+                PublicPrivate = PublicPrivate,
+                CompanyInformationId = CompanyInformationId //companyInformationManager.GetById(model.CompanyInformation_Name, model.CompanyInformation_Surname, model.CompanyInformation_mail)
+
+
+            });
+        }
+
         public Company GetId(int companyId)
         {
             return contextManager.Companies.SingleOrDefault(s => s.Id == companyId);

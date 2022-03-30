@@ -19,6 +19,7 @@ namespace CompanyAgreement.Models
         [Column(TypeName = "Varchar")]
         [StringLength(20)]
         public string District { get; set; }
-        public ICollection<Company> Companies { get; set; } 
+       
+        public Company Company { get; set; }
     }
 }

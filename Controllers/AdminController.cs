@@ -15,7 +15,7 @@ namespace CompanyAgreement.Controllers
         CompanyInformationManager companyInformationManager = new CompanyInformationManager();
         CompanyDepartmantManager companyDepartmantManager = new CompanyDepartmantManager();
         CompanyAuthorityManager companyAuthorityManager = new CompanyAuthorityManager();
-        DepartmantManager departmantManager = new DepartmantManager();  
+        DepartmantManager departmantManager = new DepartmantManager();
 
         public IActionResult Index()
         {
@@ -36,42 +36,19 @@ namespace CompanyAgreement.Controllers
 
         }
 
-
-
         //Firma Giriş Sayfasındaki Form veri tabanına ekleme API'si
         [HttpPost]
         [Route("API/AddCompany")]
         public string addCompany([FromForm] addCompanyModel model)
         {
             {
-                companyManager.Insert(new Models.Company()
-                {
-                    CompanyName = model.CompanyName,
-                    MeetingDate = model.MeetingDate,
-                    PublicPrivate = model.PublicPrivate,
-                    
-                });
-                cantractSituationManager.Insert(new Models.ContractSituation()
-                {
-                    Situation = model.Situations,
-                    Description = model.Description
-                });
-                companyInformationManager.Insert(new Models.CompanyInformation()
-                {
-                    Mail = model.CompanyInformation_mail,
+                int CompanyInformationId = 10; //companyInformationManager.GetById(model.CompanyInformation_Name, model.CompanyInformation_Surname, model.CompanyInformation_mail)
+                companyInformationManager.AddCompanyInformation(model.CompanyInformation_mail, model.CompanyInformation_GSM, model.CompanyInformation_Name, model.CompanyInformation_Surname);
 
-                    GSM = model.CompanyInformation_GSM,
-                    Name = model.CompanyInformation_Name,
-                    Surname = model.CompanyInformation_Surname,
-                });
-                contractInformationManager.Insert(new Models.ContractInformation()
-                {
-                    Mail = model.ContractInformation_Mail,
-                    GSM = model.ContractInformation_Gsm,
-                    Address = model.ContractInformation_Adress,
-                    Province = model.ContractInformation_Province,
-                    District = model.ContractInformation_District,
-                });
+                companyManager.AddCompany(model.CompanyName, model.MeetingDate, model.PublicPrivate, CompanyInformationId);
+                contractInformationManager.addContractInformation(model.ContractInformation_Mail, model.ContractInformation_Gsm, model.ContractInformation_Adress, model.ContractInformation_Province, model.ContractInformation_District);
+
+                cantractSituationManager.AddContractSituation(model.Situations, model.Description);
 
                 return JsonConvert.SerializeObject(new { success = true, message = "Tebrikler" });
             }
@@ -102,7 +79,7 @@ namespace CompanyAgreement.Controllers
         [Route("API/AddQuota")]
         public string addQuota([FromForm] addQuotaModel model)
         {
-         
+
             {
 
                 companyDepartmantManager.Insert(new Models.CompanyDepartment()
@@ -112,7 +89,7 @@ namespace CompanyAgreement.Controllers
                     CompanyId = model.CompanyId,
                     DepartmentId = model.DepartmentId,
                     Amount = model.Amount,
-                   
+
                 });
                 return JsonConvert.SerializeObject(new { success = true, message = "Tebrikler" });
 
@@ -122,8 +99,8 @@ namespace CompanyAgreement.Controllers
         public class addQuotaModel
         {
             public int CompanyId { get; set; }
-            public int DepartmentId{ get; set; }
-            public int Amount { get; set; } 
+            public int DepartmentId { get; set; }
+            public int Amount { get; set; }
 
 
         }

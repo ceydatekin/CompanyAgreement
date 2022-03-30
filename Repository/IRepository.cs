@@ -52,7 +52,8 @@ namespace CompanyAgreement.Repository
         public void Save()
         {
 
-            context.SaveChangesAsync();
+            context.SaveChanges();
+            //context.Dispose();
 
 
         }

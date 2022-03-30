@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CompanyAgreement.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220324182733_Initial")]
-    partial class Initial
+    [Migration("20220330151635_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,11 +48,11 @@ namespace CompanyAgreement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CompanyInformationId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ContractInformationId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("MeetingDate")
                         .HasColumnType("datetime2");
@@ -62,7 +62,8 @@ namespace CompanyAgreement.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContractInformationId");
+                    b.HasIndex("CompanyInformationId")
+                        .IsUnique();
 
                     b.ToTable("Companies");
                 });
@@ -113,9 +114,6 @@ namespace CompanyAgreement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("GSM")
                         .HasColumnType("nvarchar(max)");
 
@@ -131,9 +129,6 @@ namespace CompanyAgreement.Migrations
                         .HasColumnType("Varchar(20)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompanyId")
-                        .IsUnique();
 
                     b.ToTable("CompanyInformation");
                 });
@@ -175,6 +170,9 @@ namespace CompanyAgreement.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("Varchar(300)");
 
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("District")
                         .HasMaxLength(20)
                         .HasColumnType("Varchar(20)");
@@ -191,6 +189,8 @@ namespace CompanyAgreement.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CompanyId");
+
                     b.ToTable("ContractInformation");
                 });
 
@@ -201,7 +201,7 @@ namespace CompanyAgreement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CompanyAuthorityId")
+                    b.Property<int?>("CompanyAuthorityId")
                         .HasColumnType("int");
 
                     b.Property<int>("CompanyId")
@@ -216,8 +216,7 @@ namespace CompanyAgreement.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyAuthorityId")
-                        .IsUnique();
+                    b.HasIndex("CompanyAuthorityId");
 
                     b.HasIndex("CompanyId")
                         .IsUnique();
@@ -243,11 +242,13 @@ namespace CompanyAgreement.Migrations
 
             modelBuilder.Entity("CompanyAgreement.Models.Company", b =>
                 {
-                    b.HasOne("CompanyAgreement.Models.ContractInformation", "ContractInformation")
-                        .WithMany("Companies")
-                        .HasForeignKey("ContractInformationId");
+                    b.HasOne("CompanyAgreement.Models.CompanyInformation", "CompanyInformation")
+                        .WithOne("Company")
+                        .HasForeignKey("CompanyAgreement.Models.Company", "CompanyInformationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("ContractInformation");
+                    b.Navigation("CompanyInformation");
                 });
 
             modelBuilder.Entity("CompanyAgreement.Models.CompanyDepartment", b =>
@@ -269,17 +270,6 @@ namespace CompanyAgreement.Migrations
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("CompanyAgreement.Models.CompanyInformation", b =>
-                {
-                    b.HasOne("CompanyAgreement.Models.Company", "Company")
-                        .WithOne("CompanyInformation")
-                        .HasForeignKey("CompanyAgreement.Models.CompanyInformation", "CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-                });
-
             modelBuilder.Entity("CompanyAgreement.Models.CompanyLogin", b =>
                 {
                     b.HasOne("CompanyAgreement.Models.CompanyAuthority", "CompanyAuthority")
@@ -291,13 +281,20 @@ namespace CompanyAgreement.Migrations
                     b.Navigation("CompanyAuthority");
                 });
 
+            modelBuilder.Entity("CompanyAgreement.Models.ContractInformation", b =>
+                {
+                    b.HasOne("CompanyAgreement.Models.Company", "Company")
+                        .WithMany("ContractInformations")
+                        .HasForeignKey("CompanyId");
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("CompanyAgreement.Models.ContractSituation", b =>
                 {
                     b.HasOne("CompanyAgreement.Models.CompanyAuthority", "CompanyAuthority")
-                        .WithOne("ContractSituation")
-                        .HasForeignKey("CompanyAgreement.Models.ContractSituation", "CompanyAuthorityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("CompanyAuthorityId");
 
                     b.HasOne("CompanyAgreement.Models.Company", "Company")
                         .WithOne("ContractSituation")
@@ -314,7 +311,7 @@ namespace CompanyAgreement.Migrations
                 {
                     b.Navigation("CompanyDepartments");
 
-                    b.Navigation("CompanyInformation");
+                    b.Navigation("ContractInformations");
 
                     b.Navigation("ContractSituation");
                 });
@@ -322,13 +319,11 @@ namespace CompanyAgreement.Migrations
             modelBuilder.Entity("CompanyAgreement.Models.CompanyAuthority", b =>
                 {
                     b.Navigation("CompanyLogin");
-
-                    b.Navigation("ContractSituation");
                 });
 
-            modelBuilder.Entity("CompanyAgreement.Models.ContractInformation", b =>
+            modelBuilder.Entity("CompanyAgreement.Models.CompanyInformation", b =>
                 {
-                    b.Navigation("Companies");
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("CompanyAgreement.Models.Department", b =>
