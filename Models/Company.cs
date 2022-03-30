@@ -12,12 +12,15 @@ namespace CompanyAgreement.Models
         public bool PublicPrivate { get; set; }
         public DateTime MeetingDate { get; set; }
         //Company information 1-1
-        public virtual CompanyInformation CompanyInformation { get; set; }
+     
         //Contract situation 1-1
-       // public virtual ContractSituation ContractSituation { get; set; }
+        public  ContractSituation ContractSituation { get; set; }
+        public ICollection<ContractInformation> ContractInformations { get; set; }
+
         //Department n-n
-       // public virtual ContractInformation ContractInformation { get; set; }
         public ICollection<CompanyDepartment> CompanyDepartments { get; set; }
+        public int CompanyInformationId { get; set; }
+        public CompanyInformation CompanyInformation { get; set; }
 
     }
 }
