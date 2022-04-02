@@ -11,7 +11,7 @@ namespace CompanyAgreement.Manager
     {
         Context contextManager = ContextManager.GetContext();
         public List<CompanyInformation> AllCompanyInformation() => this.contextManager.CompanyInformation.ToList();
-       public CompanyInformation GetById1(string name, string surname, string mail) => contextManager.CompanyInformation.SingleOrDefault(i=> i.Name == name && i.Surname == surname && i.Mail ==mail);
+       public CompanyInformation GetById1(string name, string surname, string mail) => contextManager.CompanyInformation.SingleOrDefault(i=> i.Name == name && i.Surname == surname && i.Mail == mail);
         public void AddCompanyInformation(string CompanyInformation_mail,string CompanyInformation_GSM,string CompanyInformation_Name,string CompanyInformation_Surname)
         {
             Insert(new Models.CompanyInformation()
