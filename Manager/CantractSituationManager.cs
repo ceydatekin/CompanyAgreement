@@ -16,7 +16,7 @@ namespace CompanyAgreement.Manager
         {
             Insert(new Models.ContractSituation()
             {
-                CompanyId =8,
+                CompanyId =53,
                 Situation =Situation,
                 Description = Description
             });
