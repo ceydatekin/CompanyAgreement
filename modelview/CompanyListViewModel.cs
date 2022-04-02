@@ -10,6 +10,7 @@ namespace CompanyAgreement.modelview
         public List<CompanyInformation> CompanyInformation { get; set; }
         public List<CompanyAuthority> CompanyAuthority { get; set; }
         public List<ContractSituation> ContractSituation { get; set; }
+        public List<ContractInformation> ContractInformation { get; set; }
 
     }
 }

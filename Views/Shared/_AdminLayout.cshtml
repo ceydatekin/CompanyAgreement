@@ -41,6 +41,9 @@
   <link rel="stylesheet" href="~/CompanyAggrementWeb/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
   <!-- Toastr -->
   <link rel="stylesheet" href="~/CompanyAggrementWeb/plugins/toastr/toastr.min.css">
+    <!-- DataTables -->
+  <link rel="stylesheet" href="~/CompanyAggrementWeb/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="~/CompanyAggrementWeb/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
 </head>
 <body class="hold-transition sidebar-mini sidebar-collapse">
@@ -193,13 +196,13 @@
          
        
            <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="~/Admin/Index" class="nav-link">
               <i class="nav-icon far fa-circle "></i>
               <p class="text">Firma Ekle</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="~/Admin/ListCompany" class="nav-link">
               <i class="nav-icon far fa-circle "></i>
               <p>Firma Listele</p>
             </a>
@@ -249,6 +252,12 @@
 <!-- AdminLTE for demo purposes -->
 <script src="~/CompanyAggrementWeb/dist/js/demo.js"></script>
 <script src="~/CompanyAggrementWeb/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+@*datatables*@
+<script src="~/CompanyAggrementWeb/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="~/CompanyAggrementWeb/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="~/CompanyAggrementWeb/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/CompanyAggrementWeb/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
 <!-- Select2 -->
 <script src="~/CompanyAggrementWeb/plugins/select2/js/select2.full.min.js"></script>
 <script src="~/CompanyAggrementWeb/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
@@ -360,6 +369,24 @@
    
   });
 
+</script>
+
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
 </script>
 
 </body>
