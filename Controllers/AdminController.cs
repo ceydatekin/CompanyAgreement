@@ -42,14 +42,12 @@ namespace CompanyAgreement.Controllers
         public string addCompany([FromForm] addCompanyModel model)
         {
             {
-                int CompanyInformationId = companyInformationManager.GetById1(model.CompanyInformation_Name, model.CompanyInformation_Surname, model.CompanyInformation_mail).Id;
                 companyInformationManager.AddCompanyInformation(model.CompanyInformation_mail, model.CompanyInformation_GSM, model.CompanyInformation_Name, model.CompanyInformation_Surname);
-
-                companyManager.AddCompany(model.CompanyName, model.MeetingDate, model.PublicPrivate, CompanyInformationId);
-                contractInformationManager.addContractInformation(model.ContractInformation_Mail, model.ContractInformation_Gsm, model.ContractInformation_Adress, model.ContractInformation_Province, model.ContractInformation_District);
-
-                cantractSituationManager.AddContractSituation(model.Situations, model.Description);
-
+                int CompanyInformationId = companyInformationManager.GetById1(model.CompanyInformation_Name, model.CompanyInformation_Surname, model.CompanyInformation_mail).Id;
+                companyManager.AddCompany(model.CompanyName, model.MeetingDate, model.PublicPrivate, CompanyInformationId);  
+                contractInformationManager.addContractInformation(model.ContractInformation_Mail, model.ContractInformation_Gsm, model.ContractInformation_Adress, model.ContractInformation_Province, model.ContractInformation_District);    
+                int CompanyId = companyManager.GetById1(model.CompanyName, model.MeetingDate).Id;
+                cantractSituationManager.AddContractSituation(model.Situations, model.Description, CompanyId);
                 return JsonConvert.SerializeObject(new { success = true, message = "Tebrikler" });
             }
         }
