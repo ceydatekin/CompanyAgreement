@@ -31,7 +31,7 @@ namespace CompanyAgreement.Manager
         {
             return contextManager.Companies.SingleOrDefault(s => s.Id == companyId);
         }
-        public List<Company> AllCompanies() => this.contextManager.Companies.ToList();
+        public List<Company> AllCompanies() => contextManager.Companies.ToList();
       
     }
 }

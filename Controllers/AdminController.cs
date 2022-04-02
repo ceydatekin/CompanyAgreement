@@ -4,6 +4,7 @@ using CompanyAgreement.modelview;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 
 namespace CompanyAgreement.Controllers
 {
@@ -24,12 +25,19 @@ namespace CompanyAgreement.Controllers
 
         public IActionResult ListCompany()
         {
+
+            
+
             var companyListViewModel = new CompanyListViewModel();
-            companyListViewModel.Company = companyManager.AllCompanies();
-            companyListViewModel.CompanyDepartment = companyDepartmantManager.AllCompaniesDepartment();
-            companyListViewModel.CompanyInformation = companyInformationManager.AllCompanyInformation();
-            companyListViewModel.CompanyAuthority = companyAuthorityManager.AllCompanyAuthority();
-            companyListViewModel.ContractSituation = cantractSituationManager.AllCantractSituation();
+            companyListViewModel.Company = companyManager.AllCompanies().ToList();
+            companyListViewModel.CompanyDepartment = companyDepartmantManager.AllCompaniesDepartment().ToList();
+            companyListViewModel.CompanyInformation = companyInformationManager.AllCompanyInformation().ToList();
+            companyListViewModel.CompanyAuthority = companyAuthorityManager.AllCompanyAuthority().ToList();
+            companyListViewModel.ContractSituation = cantractSituationManager.AllCantractSituation().ToList();
+            companyListViewModel.ContractInformation= contractInformationManager.AllContractInformation().ToList();
+
+
+
 
             return View(companyListViewModel);
 
