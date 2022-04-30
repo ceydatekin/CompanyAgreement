@@ -6,73 +6,67 @@
 
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Firma Listesi</h3>
+        <label>Firma Listesi</label>
     </div>
-    <div class="row" style="align-content:center">
-        <div class="col-sm-2">
-            <!-- select -->
-            <div class="form-group">
-                <label>Firmaların Onay Durumu</label>
-                <select class="form-control">
-                    <option>K1-Olumlu</option>
-                    <option>K2-Olumsuz</option>
-                    <option>K4-Bekleme Aşaması</option>
+    <div class="col-md-12" style="text-align-last: center;">
+        <div class="card-content">
+            <div class="row" style="align-content:flex-start">
 
-                </select>
+                <div class="col-sm-3">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>Firmaların Onay Durumu</label>
+                        <select class="form-control">
+                            <option>K1-Olumlu</option>
+                            <option>K2-Olumsuz</option>
+                            <option>K4-Bekleme Aşaması</option>
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>Kamu/Özel Durumu</label>
+                        <select class="form-control">
+                            <option>Kamu</option>
+                            <option>Özel</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>Konuma Göre</label>
+                        <select class="form-control">
+                            <option>İstanbul</option>
+                            <option>İzmir</option>
+                            <option>Bursa</option>
+                            <option>Çanakkale</option>
+                            <option>Kocaeli</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-3" style="align-self: center;     float: left    text-align-last: center;">
+                    <label></label>
+                    <div class="form-group">
+                        <button style="height:45px" type="button" id="companyadd" class="btn btn-info  swalDefaultInfo">
+                            Filtrele
+                        </button>
+                    </div>
+
+                </div>
+
             </div>
-        </div>
-
-        <div class="col-sm-3">
-            <!-- select -->
-            <div class="form-group">
-                <label>Kamu/Özel Durumu</label>
-                <select class="form-control">
-                    <option>Kamu</option>
-                    <option>Özel</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="col-sm-2">
-            <!-- select -->
-            <div class="form-group">
-                <label>Konuma Göre</label>
-                <select class="form-control">
-                    <option>İstanbul</option>
-                    <option>İzmir</option>
-                    <option>Bursa</option>
-                    <option>Çanakkale</option>
-                    <option>Kocaeli</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="col-sm-3">
-            <!-- select -->
-            <div class="form-group">
-                <label>Görüşme Tarihi</label>
-                <select class="form-control">
-                    <option>Son Görüşülenlere Göre</option>
-                    <option>Eski Görüşülenlere Göre</option>
-                    <option>Son Bir Ay</option>
-                    <option>Bu Hafta</option>
-                    >
-                </select>
-            </div>
-        </div>
-
-        <br />
-        <!-- select -->
-
-        <button style="height:40px,auto:center" type="button" id="companyadd" class="btn btn-info swalDefaultInfo">
-            Filtrele
-        </button>
 
 
 
 
-
-    </div>
+    <!-- select -->
     <!-- /.card-header -->
     <div class="card-body">
         <table id="example1" class="table table-bordered table-striped">
