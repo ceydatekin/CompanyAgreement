@@ -10,6 +10,7 @@ namespace CompanyAgreement.Controllers
 {
     public class AdminController : Controller
     {
+        #region Manager
         CompanyManager companyManager = new CompanyManager();
         CantractSituationManager cantractSituationManager = new CantractSituationManager();
         ContractInformationManager contractInformationManager = new ContractInformationManager();
@@ -17,7 +18,7 @@ namespace CompanyAgreement.Controllers
         CompanyDepartmantManager companyDepartmantManager = new CompanyDepartmantManager();
         CompanyAuthorityManager companyAuthorityManager = new CompanyAuthorityManager();
         DepartmantManager departmantManager = new DepartmantManager();
-
+        #endregion
         public IActionResult Login()
         {
             return View();
@@ -88,9 +89,7 @@ namespace CompanyAgreement.Controllers
         [Route("API/AddQuota")]
         public string addQuota([FromForm] addQuotaModel model)
         {
-
             {
-
                 companyDepartmantManager.Insert(new Models.CompanyDepartment()
                 {
                     Company = companyManager.GetId(model.CompanyId),
@@ -98,14 +97,16 @@ namespace CompanyAgreement.Controllers
                     CompanyId = model.CompanyId,
                     DepartmentId = model.DepartmentId,
                     Amount = model.Amount,
-
                 });
                 return JsonConvert.SerializeObject(new { success = true, message = "Tebrikler" });
-
             }
         }
         public IActionResult AddCompanyQuota()
         {
+            var addQuotaViewModel = new AddQuotaViewModel();
+            addQuotaViewModel.CompanyDepartment  = companyDepartmantManager.AllCompaniesDepartment().ToList();
+            addQuotaViewModel.Companies = companyManager.AllCompanies().ToList();
+            addQuotaViewModel.Departments = departmantManager.AllDepartments().ToList();
             return View();  
         }
 
