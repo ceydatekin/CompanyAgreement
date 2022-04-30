@@ -1,10 +1,10 @@
 ﻿
-    $('body').on('click', '#companyadd', function () {
-        console.log("deneme")
-        var CompanyName = $('#CompanyName').val();
+$('body').on('click', '#companyadd', function () {
+    console.log("deneme")
+    var CompanyName = $('#CompanyName').val();
     var MeetingDate = $('#MeetingDate').val();
     var PublicPrivate = $('#PublicPrivate').val();
-    var Situation = $('#Situation').val();
+    var Situations = $('#Situations').val();
     var Description = $('#Description').val();
     var CompanyInformation_mail = $('#CompanyInformation_mail').val();
     var CompanyInformation_GSM = $('#CompanyInformation_GSM').val();
@@ -19,7 +19,7 @@
     formdata.append('CompanyName', CompanyName);
     formdata.append('MeetingDate', MeetingDate);
     formdata.append('PublicPrivate', PublicPrivate);
-    formdata.append('Situation', Situation);
+    formdata.append('Situations', Situations);
     formdata.append('Description', Description);
     formdata.append('CompanyInformation_mail', CompanyInformation_mail);
     formdata.append('CompanyInformation_GSM', CompanyInformation_GSM);
@@ -34,21 +34,24 @@
     console.log("eklemei is şladmlas")
     $.ajax({
         url: '/API/AddCompany',
-    method: 'post',
-    data: formdata,
-    processData: false,
-    contentType: false,
-    success: function (resp) {
-        console.log(resp)
-                var jsonResp = JSON.parse(resp);
-    console.log(jsonResp)
-    if (jsonResp.success == true)
-    console.log("başarılı")
-    else if (jsonResp.success == false)
-    console.log("hata olustu")
-            },
-    error: function (err) {
-        console.log(err)
-    }
-        });
+        method: 'post',
+        data: formdata,
+        processData: false,
+        contentType: false,
+        success: function (resp) {
+            console.log(resp)
+            var jsonResp = JSON.parse(resp);
+            console.log(jsonResp)
+            if (jsonResp.success == true) {
+                console.log("başarılı")
+                setTimeout("window.location.reload(true);", 1000);
+            }
+                
+            else if (jsonResp.success == false)
+                console.log("hata olustu")
+        },
+        error: function (err) {
+            console.log(err)
+        }
     });
+});

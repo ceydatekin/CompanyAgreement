@@ -18,21 +18,15 @@ namespace CompanyAgreement.Controllers
         CompanyAuthorityManager companyAuthorityManager = new CompanyAuthorityManager();
         DepartmantManager departmantManager = new DepartmantManager();
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         public IActionResult Login()
         {
             return View();
         }
 
+        #region Firma Listele
+
         public IActionResult ListCompany()
         {
-
-            
-
             var companyListViewModel = new CompanyListViewModel();
             companyListViewModel.Company = companyManager.AllCompanies().ToList();
             companyListViewModel.CompanyDepartment = companyDepartmantManager.AllCompaniesDepartment().ToList();
@@ -40,13 +34,14 @@ namespace CompanyAgreement.Controllers
             companyListViewModel.CompanyAuthority = companyAuthorityManager.AllCompanyAuthority().ToList();
             companyListViewModel.ContractSituation = cantractSituationManager.AllCantractSituation().ToList();
             companyListViewModel.ContractInformation= contractInformationManager.AllContractInformation().ToList();
-
-
-
-
             return View(companyListViewModel);
+        }
+        #endregion
 
-
+        #region Firma Ekleme
+        public IActionResult Index()
+        {
+            return View();
         }
 
         //Firma Giriş Sayfasındaki Form veri tabanına ekleme API'si
@@ -85,6 +80,9 @@ namespace CompanyAgreement.Controllers
 
         }
 
+        #endregion
+
+        #region Firma Kontenjan Ekleme
         //Firma Kontenjan Ekleme
         [HttpPost]
         [Route("API/AddQuota")]
@@ -119,5 +117,6 @@ namespace CompanyAgreement.Controllers
             
 
         }
+        #endregion
     }
 }
