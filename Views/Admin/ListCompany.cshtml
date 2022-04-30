@@ -8,6 +8,71 @@
     <div class="card-header">
         <h3 class="card-title">Firma Listesi</h3>
     </div>
+    <div class="row" style="align-content:center">
+        <div class="col-sm-2">
+            <!-- select -->
+            <div class="form-group">
+                <label>Firmaların Onay Durumu</label>
+                <select class="form-control">
+                    <option>K1-Olumlu</option>
+                    <option>K2-Olumsuz</option>
+                    <option>K4-Bekleme Aşaması</option>
+
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <!-- select -->
+            <div class="form-group">
+                <label>Kamu/Özel Durumu</label>
+                <select class="form-control">
+                    <option>Kamu</option>
+                    <option>Özel</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-2">
+            <!-- select -->
+            <div class="form-group">
+                <label>Konuma Göre</label>
+                <select class="form-control">
+                    <option>İstanbul</option>
+                    <option>İzmir</option>
+                    <option>Bursa</option>
+                    <option>Çanakkale</option>
+                    <option>Kocaeli</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <!-- select -->
+            <div class="form-group">
+                <label>Görüşme Tarihi</label>
+                <select class="form-control">
+                    <option>Son Görüşülenlere Göre</option>
+                    <option>Eski Görüşülenlere Göre</option>
+                    <option>Son Bir Ay</option>
+                    <option>Bu Hafta</option>
+                   >
+                </select>
+            </div>
+        </div>
+
+       <br />
+            <!-- select -->
+          
+                <button style="height:40px,auto:center" type="button" id="companyadd" class="btn btn-info swalDefaultInfo">
+                   Filtrele
+                </button>
+           
+       
+
+
+
+    </div>
     <!-- /.card-header -->
     <div class="card-body">
         <table id="example1" class="table table-bordered table-striped">
@@ -31,12 +96,12 @@
                 {
                     <tr>
                         <td>@Model.Company[i].CompanyName</td>
-                        <td>@Model.Company[i].PublicPrivate</td>
-                        <td>@Model.ContractSituation[i].Situation</td>
+                        <td>@*@Model.Company[i].PublicPrivate*@ Özel</td>
+                        <td>@Model.ContractSituation[i].Situation K1-Olumlu</td>
                         <td>@Model.Company[i].MeetingDate</td>
                         <td>@Model.CompanyInformation[i].Name  @Model.CompanyInformation[i].Surname</td>
                         <td>@Model.ContractInformation[i].Province / @Model.ContractInformation[i].District </td>
-                       
+
                     </tr>
                 }
 

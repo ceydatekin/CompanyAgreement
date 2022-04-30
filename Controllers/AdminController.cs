@@ -23,6 +23,11 @@ namespace CompanyAgreement.Controllers
             return View();
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
         public IActionResult ListCompany()
         {
 
@@ -101,13 +106,17 @@ namespace CompanyAgreement.Controllers
 
             }
         }
+        public IActionResult AddCompanyQuota()
+        {
+            return View();  
+        }
 
         public class addQuotaModel
         {
             public int CompanyId { get; set; }
             public int DepartmentId { get; set; }
             public int Amount { get; set; }
-
+            
 
         }
     }
