@@ -10,9 +10,7 @@ namespace CompanyAgreement.Manager
     public class DepartmantManager : IRepository<Department>
     {
         Context contextManager = ContextManager.GetContext();
-        public Department GetId(int departmantId)
-        {
-            return contextManager.Departments.SingleOrDefault(s => s.Id == departmantId);
-        }
+        public Department GetId(int departmantId) => contextManager.Departments.SingleOrDefault(s => s.Id == departmantId);
+        public List<Department> AllDepartments() => this.contextManager.Departments.ToList();
     }
 }
