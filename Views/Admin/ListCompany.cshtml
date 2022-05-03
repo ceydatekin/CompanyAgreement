@@ -8,7 +8,7 @@
     <div class="card-header">
         <label>Firma Listesi</label>
     </div>
-    <div class="col-md-12" style="text-align-last: center;">
+    <div class="col-md-12" @*style="text-align-last: center;"*@ style="margin-left: 10px; margin-top: 5px; ">
         <div class="card-content">
             <div class="row" style="align-content:flex-start">
 
@@ -51,7 +51,7 @@
                 </div>
 
 
-                <div class="col-sm-3" style="align-self: center;     float: left    text-align-last: center;">
+                <div class="col-sm-3" @*style="align-self: center; float: left text-align-last: center;"*@>
                     <label></label>
                     <div class="form-group">
                         <button style="height:45px" type="button" id="companyadd" class="btn btn-info  swalDefaultInfo">
@@ -63,7 +63,8 @@
 
             </div>
 
-
+        </div>
+    </div>
 
 
     <!-- select -->
@@ -79,6 +80,7 @@
                     <th>Görüşme Tarihi</th>
                     <th>İlgili Kişi</th>
                     <th>Bulunduğu İl</th>
+                    <th>Düzenle</th>
 
                 </tr>
             </thead>
@@ -95,6 +97,11 @@
                         <td>@Model.Company[i].MeetingDate</td>
                         <td>@Model.CompanyInformation[i].Name  @Model.CompanyInformation[i].Surname</td>
                         <td>@Model.ContractInformation[i].Province / @Model.ContractInformation[i].District </td>
+                        <td>
+                            <a class="btn btn-app">
+                                <i class="fas fa-edit"></i> Düzenle
+                            </a>
+                        </td>
 
                     </tr>
                 }
