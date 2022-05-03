@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CompanyAgreement.Models;
 using CompanyAgreement.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace CompanyAgreement.Manager
 {
@@ -26,12 +27,20 @@ namespace CompanyAgreement.Manager
 
             });
         }
+       //company id ye göre companynin sahip olduğu departmanların listelenmesi (modal kısmını açmadan önce listeleme sayfasında olması gereken veriler
+       //örn diniz holding psikoloji kontenjan: 3)
+        //public List<Company> DepartmentListForCompany(int companyId)
+        //{
 
+        //    //DepartmantManager departmantManager = new DepartmantManager();  
+        //    //return departmantManager.AllDepartments().Include(companyId).ToList();   
+        //}
         public Company GetId(int companyId)
         {
             return contextManager.Companies.SingleOrDefault(s => s.Id == companyId);
         }
         public List<Company> AllCompanies() => contextManager.Companies.ToList();
+        
       
     }
 }

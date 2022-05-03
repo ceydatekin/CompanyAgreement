@@ -1,45 +1,46 @@
-﻿@{
+﻿@model CompanyAgreement.modelview.AddQuotaViewModel
+@*C:\Users\oyku\source\repos\CompanyAgreement\modelview\*@
+@{
     ViewData["Title"] = "AddCompanyQuota";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+@*<h1>Firma Kontenjan Ekle</h1>
+
+@using (Html.BeginForm("AddCompanyQuota", "Admin", FormMethod.Post))
+{
+    @Html.Label("Kontenjan durumunu kontrol etmek istediğiniz firmayı seçiniz.")
+    @Html.DropDownListFor(x=>x.CompanyId,(List<SelectListItem>)ViewBag.companyValues,new {@class="form-control"})
+
+    <br />
+    <button class="btn btn-info">Firma Kontenjanını Listele</button>
+    <button class="btn btn-info">Firma Kontenjanı Ekle</button>
+}
+*@
 
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Kontenjan Ekle</h3>
     </div>
 
-    @* <div class="col-md-6">
-        <div class="form-group">
-        <select class="form-control select2" style="width: 100%;">
-        <option selected="selected">Alabama</option>
-        <option>Alaska</option>
-        <option>California</option>
-        <option>Delaware</option>
-        <option>Tennessee</option>
-        <option>Texas</option>
-        <option>Washington</option>
-        </select>
-        </div>
-        </div>*@
-    <!-- /.card-header -->
     <div class="card-body">
         <table id="example1" class="table table-bordered table-striped">
 
-
             <div class="col-md-6">
                 <div class="form-group">
-                    <select class="form-control select2" style="width: 100%;">
-                        <option selected="selected">Mühendislik ve Doğa Bilimleri Fakültesi</option>
-                        <option>İnsan ve Toplum Bilimleri Fakültesi</option>
-                        <option>İletişim Fakültesi</option>
-                        <option>Mimarlık ve Tasarım Fakültesi</option>
-                        <option>Denizcilik Fakültesi</option>
+                    @using (Html.BeginForm("AddCompanyQuota", "Admin", FormMethod.Post))
+                    {
+                        @Html.Label("Kontenjan durumunu kontrol etmek istediğiniz firmayı seçiniz.")
+                        @Html.DropDownListFor(x=>x.CompanyId,(List<SelectListItem>)ViewBag.companyValues,new {@class="form-control"})
 
-                    </select>
+                        <br />
+                        <button class="btn btn-warning">Firma Kontenjanını Listele</button>
+                        <button class="btn btn-info">Firma Kontenjanı Ekle</button>
+                    }
+
                 </div>
             </div>
-            
+
 
 
             <thead>
@@ -51,10 +52,10 @@
                 </tr>
             </thead>
 
-            
+
             <tbody>
-               
-               
+
+
                 <tr>
                     <td>Uluslararası İlişkiler</td>
                     <td>
@@ -100,7 +101,7 @@
                     </td>
 
                 </tr>
-                 <tr>
+                <tr>
                     <td>İngilizce Mütercim ve Tercümanlık</td>
                     <td>
                         <div class="col-3">
@@ -109,172 +110,20 @@
                     </td>
 
                 </tr>
-               
-            
+
+
 
 
 
 
             </tbody>
-@*
-            <tbody>
-                <tr>
-                    <td>Bilgisayar Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="5">
-                        </div>
-                    </td>
 
-                </tr>
-                <tr>
-                    <td>Biyomühendislik</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Çevre Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Elektrik Elektronik Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="2">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Endüstri Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="2">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Fizik</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="2">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Gıda Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Havacılık ve Uzay Mühendisliği Bölümü</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>İnşaat Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Kimya</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Kimya Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Makine Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Matematik</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Mekatronik Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Metalürji ve Malzeme Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Polimer Malzeme Mühendisliği </td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-
-
-
-
-            </tbody>*@
 
 
 
         </table>
 
-         <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Değişiklikleri Kaydet</button>
-         </div>
+        
     </div>
     <!-- /.card-body -->
 </div>
