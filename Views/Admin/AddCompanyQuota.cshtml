@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CompanyAgreement.modelview.AddQuotaViewModel
+@{
     ViewData["Title"] = "AddCompanyQuota";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
@@ -8,273 +9,58 @@
     <div class="card-header">
         <h3 class="card-title">Kontenjan Ekle</h3>
     </div>
-
-    @* <div class="col-md-6">
-        <div class="form-group">
-        <select class="form-control select2" style="width: 100%;">
-        <option selected="selected">Alabama</option>
-        <option>Alaska</option>
-        <option>California</option>
-        <option>Delaware</option>
-        <option>Tennessee</option>
-        <option>Texas</option>
-        <option>Washington</option>
-        </select>
-        </div>
-        </div>*@
-    <!-- /.card-header -->
-    <div class="card-body">
-        <table id="example1" class="table table-bordered table-striped">
+    <select class="form-control" id="CompanyId">
+        <option value="-1">Firma Seçiniz</option>
+        @foreach (var item in Model.Companies)
+        {
+            <option value="@item.Id">@item.CompanyName </option>
+        }
+    </select>
+    <button type="button" class="btn" data-toggle="modal" data-target="#selectQuota">Firmaya Bölüm Ekle </button>
 
 
-            <div class="col-md-6">
-                <div class="form-group">
-                    <select class="form-control select2" style="width: 100%;">
-                        <option selected="selected">Mühendislik ve Doğa Bilimleri Fakültesi</option>
-                        <option>İnsan ve Toplum Bilimleri Fakültesi</option>
-                        <option>İletişim Fakültesi</option>
-                        <option>Mimarlık ve Tasarım Fakültesi</option>
-                        <option>Denizcilik Fakültesi</option>
+</div>
 
-                    </select>
-                </div>
+<div class="modal fade" tabindex="-1" role="dialog" id="selectQuota">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Kontenjan Ekleme</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
             </div>
-            
-
-
-            <thead>
-                <tr>
-                    <th>Bölüm Adı</th>
-                    <th>Açılan Kontenjan</th>
-
-
-                </tr>
-            </thead>
-
-            
-            <tbody>
+            <div class="modal-body">
                
-               
-                <tr>
-                    <td>Uluslararası İlişkiler</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="2">
-                        </div>
-                    </td>
+                <div class="row " style="margin:2px; padding:10px">
+                    <div class="input-group flex-nowrap col">
 
-                </tr>
-                <tr>
-                    <td>Uluslararası Ticaret ve Lojistik</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="2">
-                        </div>
-                    </td>
+                        <span class="input-group-text" id="addon-wrapping">Bölümü</span>
+                        <select class="form-control" id="Department">
+                            <option value="-1">Seçiniz</option>
+                            @foreach (var item in Model.Departments)
+                            {
+                                <option value="@item.Id">@item.DepartmentName </option>
+                            }
+                        </select>
+                        @*@ViewBag.liste.*@
+                    </div>
+                </div>
+                <div class="row " style="margin:2px; padding:10px">
+                    <div class="input-group flex-nowrap col">
+                        <span class="input-group-text" id="addon-wrapping">Öğrenci Miktari</span>
+                       <input type="text" class="form-control" placeholder="Öğrenci Miktari" aria-describedby="addon-wrapping" id="Amount">
+                       
+                    </div>
+                </div>
+                 <div class="form-group" style= "visibility : hidden">
+                    <input type="text" class="form-control" id="recipient-name">
+                </div>
 
-                </tr>
-                <tr>
-                    <td>Sosyoloji</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Psikoloji</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>İşletme</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                 <tr>
-                    <td>İngilizce Mütercim ve Tercümanlık</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-               
-            
-
-
-
-
-            </tbody>
-@*
-            <tbody>
-                <tr>
-                    <td>Bilgisayar Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="5">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Biyomühendislik</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Çevre Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Elektrik Elektronik Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="2">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Endüstri Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="2">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Fizik</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="2">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Gıda Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Havacılık ve Uzay Mühendisliği Bölümü</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>İnşaat Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Kimya</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Kimya Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Makine Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Matematik</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Mekatronik Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Metalürji ve Malzeme Mühendisliği</td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Polimer Malzeme Mühendisliği </td>
-                    <td>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="0">
-                        </div>
-                    </td>
-
-                </tr>
-
-
-
-
-            </tbody>*@
-
-
-
-        </table>
-
-         <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Değişiklikleri Kaydet</button>
-         </div>
-    </div>
-    <!-- /.card-body -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" id="quotaAdd">Ekle</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div>
