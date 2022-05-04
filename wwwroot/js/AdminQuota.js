@@ -46,6 +46,7 @@ $('body').on('click', '#quotaAdd', function () {
 //    })
 //});
 
+
 $('#selectQuota').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
     console.log("lkasfvls")
@@ -60,7 +61,7 @@ $('#selectQuota').on('show.bs.modal', function (event) {
 $('body').on('change', '#Department', function () {
     var DepartmentId = $('#Department').val();
     var CompanyId = $('#recipient-name').val();
-    
+
     console.log(DepartmentId)
 
     $.ajax({
@@ -72,7 +73,7 @@ $('body').on('change', '#Department', function () {
         success: function (resp) {
             console.log(resp)
             $('#Amount').val(resp)
-           
+
 
         }
     });
