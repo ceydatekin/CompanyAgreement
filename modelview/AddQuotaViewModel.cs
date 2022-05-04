@@ -5,6 +5,9 @@ namespace CompanyAgreement.modelview
 {
     public class AddQuotaViewModel
     {
+        public int CompanyId { get; set; }
+        public int DepartmentId { get; set; }
+        public int Amount { get; set; }
         public List<Department> Departments { get; set; }
         public List<CompanyDepartment> CompanyDepartment { get; set; }
         public List<Company> Companies { get; set; }
