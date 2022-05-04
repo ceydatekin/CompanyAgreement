@@ -41,11 +41,12 @@ namespace CompanyAgreement.Repository
             return entity;
 
         }
-        //public void Update(T entity)
-        //{
-        //    context.Set<T>().Update(entity);
-        //    Save();
-        //}
+
+        public void Update(T entity)
+        {
+            context.Set<T>().Update(entity);
+            context.SaveChanges();
+        }
         public  void Delete(T entity)
         {
             context.Set<T>().Remove(entity);

@@ -126,6 +126,22 @@ namespace CompanyAgreement.Controllers
         }
 
 
+        [HttpGet]
+        [Route("API/quotaList")]
+        public string QuotaList(int companyId)
+        {
+            var companies = companyDepartmantManager.GetAllDepartment(companyId);
+            var list = (from _company in companies
+                                   select new
+                                   {
+                                       DepartmentName = _company.Department.DepartmentName,
+                                       Kontenjan = _company.Amount
+
+                                   }).ToList();
+            return JsonConvert.SerializeObject(new { success = true, message = "Tebirkler", data = list });
+        }
+
+       
         [Route("API/selectDepertment")]
         public int SelectDepertment(int companyId, int departmentId)
         {

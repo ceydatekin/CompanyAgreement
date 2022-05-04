@@ -28,11 +28,22 @@ namespace CompanyAgreement.Manager
         }
 
 
+        public List<CompanyDepartment> GetAllDepartment(int companyId)
+        {
+            var companies = contextManager.CompanyDepartments.Where(s => s.CompanyId == companyId).ToList();
+           
+
+            return companies;
+        }
 
         public void GetObject(int companyId, int departmentId, int amount)
         {
             var cDepartment = contextManager.CompanyDepartments.SingleOrDefault(s => s.CompanyId == companyId && s.DepartmentId == departmentId);
             cDepartment.Amount = amount;
+            cDepartment.DepartmentId = departmentId;
+            cDepartment.CompanyId = companyId;
+            Delete(cDepartment);
+            Update(cDepartment);
         }
 
 
