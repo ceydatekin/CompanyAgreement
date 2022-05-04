@@ -67,49 +67,49 @@
     </div>
 
 
-            <!-- select -->
-            <!-- /.card-header -->
-            <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Firma Adı</th>
-                            <th>Kamu/Özel Durumu</th>
-                            <th>Anlaşma Durumu</th>
-                            @*  <th>Açılan Kontenjan</th>*@
-                            <th>Görüşme Tarihi</th>
-                            <th>İlgili Kişi</th>
-                            <th>Bulunduğu İl</th>
+    <!-- select -->
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Firma Adı</th>
+                    <th>Kamu/Özel Durumu</th>
+                    <th>Anlaşma Durumu</th>
+                    @*  <th>Açılan Kontenjan</th>*@
+                    <th>Görüşme Tarihi</th>
+                    <th>İlgili Kişi</th>
+                    <th>Bulunduğu İl</th>
 
-                        </tr>
-                    </thead>
+                </tr>
+            </thead>
 
 
-                    <tbody>
+            <tbody>
 
-                        @for (int i = 0; i < Model.Company.Count; i++)
+                @for (int i = 0; i < Model.Company.Count; i++)
+                {
+                    <tr>
+                        <td>@Model.Company[i].CompanyName</td>
+                        @if (@Model.Company[i].PublicPrivate)
                         {
-                            <tr>
-                                <td>@Model.Company[i].CompanyName</td>
-                                @if (@Model.Company[i].PublicPrivate)
-                                {
-                                    <td>Özel</td>
-                                }
-                                else
-                                {
-                                    <td>Kamu</td>
-                                }
-                                <td>@Model.ContractSituation[i].Situation K1-Olumlu</td>
-                                <td>@Model.Company[i].MeetingDate</td>
-                                <td>@Model.CompanyInformation[i].Name  @Model.CompanyInformation[i].Surname</td>
-                                <td>@Model.ContractInformation[i].Province / @Model.ContractInformation[i].District </td>
-
-                            </tr>
+                            <td>Özel</td>
                         }
+                        else
+                        {
+                            <td>Kamu</td>
+                        }
+                        <td>@Model.ContractSituation[i].Situation </td>
+                        <td>@Model.Company[i].MeetingDate</td>
+                        <td>@Model.CompanyInformation[i].Name  @Model.CompanyInformation[i].Surname</td>
+                        <td>@Model.ContractInformation[i].Province / @Model.ContractInformation[i].District </td>
 
-                    </tbody>
+                    </tr>
+                }
 
-                </table>
-            </div>
-            <!-- /.card-body -->
-        </div>
+            </tbody>
+
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>

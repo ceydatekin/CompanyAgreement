@@ -98,6 +98,9 @@ namespace CompanyAgreement.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
                     b.HasKey("DepartmentId", "CompanyId");
 
                     b.HasIndex("CompanyId");

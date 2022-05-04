@@ -22,6 +22,8 @@ $('body').on('click', '#quotaAdd', function () {
             console.log(jsonResp)
             if (jsonResp.success == true) {
                 console.log("başarılı")
+                $('#selectQuota').modal('hide')
+                $(document).ready(function () { Listele() });
             }
 
             else if (jsonResp.success == false)
@@ -78,4 +80,49 @@ $('body').on('change', '#Department', function () {
         }
     });
 
+});
+
+
+
+var datatable;
+function Listele() {
+    var companyId = $('#CompanyId').val();
+    $.ajax({
+        type: 'GET',
+        url: '/API/quotaList?companyId=' + companyId,
+        contentType: "application/json; charset=utf-8",
+        async: false,
+        cache: false,
+        dataType: "json",
+        success: function (resp) {
+            console.log(resp)
+            $('#SelectQuota').DataTable().clear().destroy();
+            datatable = $('#SelectQuota').DataTable({
+                orderCellsTop: true,
+                fixedHeader: true,
+                searching: false,
+                bInfo: true,
+                ordering: true,
+                data: resp.data,
+                columns: [
+                    {
+                        data: "DepartmentName"
+                    },
+                    {
+                        data: "Kontenjan"
+                    },
+                ],
+                columnDefs: [],
+                order: [[1, "asc"]],
+                colReorder: true,
+                scrollX: '50px',
+                select: {
+                    style: 'multi'
+                },
+            });
+        }
+    });
+};
+$('body').on('change', '#CompanyId', function () {
+    $(document).ready(function () { Listele() });
 });
