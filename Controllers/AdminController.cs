@@ -2,8 +2,10 @@
 using CompanyAgreement.Models;
 using CompanyAgreement.modelview;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CompanyAgreement.Controllers
@@ -107,14 +109,45 @@ namespace CompanyAgreement.Controllers
             return JsonConvert.SerializeObject(new { success = true, message = "Tebrikler" });
 
         }
+        [HttpGet]
         public IActionResult AddCompanyQuota()
         {
+            DepartmantManager departmantManager = new DepartmantManager();
+            CompanyManager companyManager = new CompanyManager();
+
+            //Kontenjan eklerken kullanılacak
+            List<SelectListItem> departmentValues = (from x in departmantManager.GetAll().ToList()
+                                                     select new SelectListItem
+                                                     {
+                                                         Text = x.DepartmentName,
+                                                         Value = x.Id.ToString(),
+
+                                                     }).ToList();
+            //Listeleme yaparken ve kontenjan eklenirken yollanacak id
+            List<SelectListItem> companyValues = (from x in companyManager.GetAll().ToList()
+                                                  select new SelectListItem
+                                                  {
+                                                      Text = x.CompanyName,
+                                                      Value = x.Id.ToString(),
+
+                                                  }).ToList();
+            ViewBag.DepartmentValues = departmentValues;
+            ViewBag.companyValues = companyValues;
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddCompanyQuota(int companyId,int departmentId,int amount)
+        {
             var addQuotaViewModel = new AddQuotaViewModel();
+
             addQuotaViewModel.CompanyDepartment = companyDepartmantManager.AllCompaniesDepartment().ToList();
             addQuotaViewModel.Companies = companyManager.AllCompanies().ToList();
             addQuotaViewModel.Departments = departmantManager.AllDepartments().ToList();
             return View(addQuotaViewModel);
+
         }
+      
 
         public class addQuotaModel
         {
