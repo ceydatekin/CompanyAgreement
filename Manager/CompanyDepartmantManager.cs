@@ -17,11 +17,11 @@ namespace CompanyAgreement.Manager
         //    return contextManager.CompanyDepartments.SingleOrDefault(s => s.CompanyId == CompanyId);
         //}
 
-        public int GetId(int companyId,int departmentId)
+        public int GetId(int companyId, int departmentId)
         {
             var amount = contextManager.CompanyDepartments.SingleOrDefault(s => s.CompanyId == companyId && s.DepartmentId == departmentId);
 
-            if(amount == null) 
+            if (amount == null)
                 return 0;
 
             return amount.Amount;
@@ -51,3 +51,4 @@ namespace CompanyAgreement.Manager
         //}
     }
 }
+
