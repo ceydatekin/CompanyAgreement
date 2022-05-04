@@ -26,6 +26,9 @@ namespace CompanyAgreement.Manager
 
             return amount.Amount;
         }
+
+
+
         public void GetObject(int companyId, int departmentId, int amount)
         {
             var cDepartment = contextManager.CompanyDepartments.SingleOrDefault(s => s.CompanyId == companyId && s.DepartmentId == departmentId);

@@ -46,6 +46,7 @@ $('body').on('click', '#quotaAdd', function () {
 //    })
 //});
 
+
 $('#selectQuota').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
     console.log("lkasfvls")

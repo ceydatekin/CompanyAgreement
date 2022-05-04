@@ -87,6 +87,7 @@ namespace CompanyAgreement.Controllers
         //Firma Kontenjan Ekleme
         [HttpPost]
         [Route("API/AddQuota")]
+
         public string addQuota([FromForm] addQuotaModel model)
         {
             try
