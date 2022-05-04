@@ -1,5 +1,6 @@
 ﻿using CompanyAgreement.Manager;
 using CompanyAgreement.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,10 +41,11 @@ namespace CompanyAgreement.Repository
             return entity;
 
         }
-        public  void Update(T entity)
-        {
-
-        }
+        //public void Update(T entity)
+        //{
+        //    context.Set<T>().Update(entity);
+        //    Save();
+        //}
         public  void Delete(T entity)
         {
             context.Set<T>().Remove(entity);

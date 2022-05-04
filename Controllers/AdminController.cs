@@ -36,7 +36,7 @@ namespace CompanyAgreement.Controllers
             companyListViewModel.CompanyInformation = companyInformationManager.AllCompanyInformation().ToList();
             companyListViewModel.CompanyAuthority = companyAuthorityManager.AllCompanyAuthority().ToList();
             companyListViewModel.ContractSituation = cantractSituationManager.AllCantractSituation().ToList();
-            companyListViewModel.ContractInformation= contractInformationManager.AllContractInformation().ToList();
+            companyListViewModel.ContractInformation = contractInformationManager.AllContractInformation().ToList();
             return View(companyListViewModel);
         }
         #endregion
@@ -55,8 +55,8 @@ namespace CompanyAgreement.Controllers
             {
                 companyInformationManager.AddCompanyInformation(model.CompanyInformation_mail, model.CompanyInformation_GSM, model.CompanyInformation_Name, model.CompanyInformation_Surname);
                 int CompanyInformationId = companyInformationManager.GetById1(model.CompanyInformation_Name, model.CompanyInformation_Surname, model.CompanyInformation_mail).Id;
-                companyManager.AddCompany(model.CompanyName, model.MeetingDate, model.PublicPrivate, CompanyInformationId);  
-                contractInformationManager.addContractInformation(model.ContractInformation_Mail, model.ContractInformation_Gsm, model.ContractInformation_Adress, model.ContractInformation_Province, model.ContractInformation_District);    
+                companyManager.AddCompany(model.CompanyName, model.MeetingDate, model.PublicPrivate, CompanyInformationId);
+                contractInformationManager.addContractInformation(model.ContractInformation_Mail, model.ContractInformation_Gsm, model.ContractInformation_Adress, model.ContractInformation_Province, model.ContractInformation_District);
                 int CompanyId = companyManager.GetById1(model.CompanyName, model.MeetingDate).Id;
                 cantractSituationManager.AddContractSituation(model.Situations, model.Description, CompanyId);
                 return JsonConvert.SerializeObject(new { success = true, message = "Tebrikler" });
@@ -91,17 +91,22 @@ namespace CompanyAgreement.Controllers
         [Route("API/AddQuota")]
         public string addQuota([FromForm] addQuotaModel model)
         {
+            try
             {
                 companyDepartmantManager.Insert(new Models.CompanyDepartment()
                 {
-                    Company = companyManager.GetId(model.CompanyId),
-                    Department = departmantManager.GetId(model.DepartmentId),
                     CompanyId = model.CompanyId,
                     DepartmentId = model.DepartmentId,
                     Amount = model.Amount,
                 });
-                return JsonConvert.SerializeObject(new { success = true, message = "Tebrikler" });
             }
+            catch (Exception)
+            {
+                companyDepartmantManager.GetObject(model.CompanyId, model.DepartmentId, model.Amount);
+            }
+            
+            return JsonConvert.SerializeObject(new { success = true, message = "Tebrikler" });
+
         }
         [HttpGet]
         public IActionResult AddCompanyQuota()
@@ -134,14 +139,12 @@ namespace CompanyAgreement.Controllers
         public IActionResult AddCompanyQuota(int companyId,int departmentId,int amount)
         {
             var addQuotaViewModel = new AddQuotaViewModel();
-            DepartmantManager departmantManager = new DepartmantManager();
-            CompanyManager companyManager = new CompanyManager();
-            addQuotaViewModel.CompanyDepartment  = companyDepartmantManager.AllCompaniesDepartment().ToList();
+
+            addQuotaViewModel.CompanyDepartment = companyDepartmantManager.AllCompaniesDepartment().ToList();
             addQuotaViewModel.Companies = companyManager.AllCompanies().ToList();
             addQuotaViewModel.Departments = departmantManager.AllDepartments().ToList();
+            return View(addQuotaViewModel);
 
-                
-            return View();  
         }
       
 
@@ -150,9 +153,19 @@ namespace CompanyAgreement.Controllers
             public int CompanyId { get; set; }
             public int DepartmentId { get; set; }
             public int Amount { get; set; }
-            
+
 
         }
+
+
+        [Route("API/selectDepertment")]
+        public int SelectDepertment(int companyId, int departmentId)
+        {
+            var amount = companyDepartmantManager.GetId(companyId, departmentId);
+
+            return amount;
+        }
+
         #endregion
     }
 }

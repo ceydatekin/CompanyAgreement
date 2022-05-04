@@ -1,10 +1,10 @@
 ﻿
 $('body').on('click', '#quotaAdd', function () {
 
-    var CompanyId = $('#CompanyId').val();
-    var DepartmentId = $('#DepartmentId').val();
+    var CompanyId = $('#recipient-name').val();
+    var DepartmentId = $('#Department').val();
     var Amount = $('#Amount').val();
-   
+
     var formdata = new FormData();
     formdata.append('CompanyId', CompanyId);
     formdata.append('DepartmentId', DepartmentId);
@@ -22,7 +22,6 @@ $('body').on('click', '#quotaAdd', function () {
             console.log(jsonResp)
             if (jsonResp.success == true) {
                 console.log("başarılı")
-                setTimeout("window.location.reload(true);", 1000);
             }
 
             else if (jsonResp.success == false)
@@ -32,4 +31,50 @@ $('body').on('click', '#quotaAdd', function () {
             console.log(err)
         }
     });
+});
+
+//$('body').on('change', '#CompanyId', function () {
+//    console.log("fdskjfhşekalf")
+//    $('#selectQuota').on('show.bs.modal', function (event) {
+//        //var button = $(event.relatedTarget) 
+//        console.log("")
+//        var recipient = 
+//        var modal = $(this)
+
+//        modal.find('.modal-body input').val(recipient)
+//        console.log(recipient)
+//    })
+//});
+
+$('#selectQuota').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    console.log("lkasfvls")
+    var recipient = $('#CompanyId').val();
+    var modal = $(this)
+    console.log(recipient)
+    modal.find('#recipient-name').val(recipient)
+})
+
+
+
+$('body').on('change', '#Department', function () {
+    var DepartmentId = $('#Department').val();
+    var CompanyId = $('#recipient-name').val();
+    
+    console.log(DepartmentId)
+
+    $.ajax({
+        url: '/API/selectDepertment',
+        type: 'GET',
+        contentType: 'json',
+        data: { companyId: CompanyId, departmentId: DepartmentId },
+        dataType: 'json',
+        success: function (resp) {
+            console.log(resp)
+            $('#Amount').val(resp)
+           
+
+        }
+    });
+
 });
