@@ -29,6 +29,21 @@ namespace CompanyAgreement.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public IActionResult AcademicianLogin()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult CompanyLogin()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult OidbLogin()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {
