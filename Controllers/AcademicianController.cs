@@ -98,5 +98,75 @@ namespace CompanyAgreement.Controllers
             return View(companyListViewModel);
         }
         #endregion
+
+        #region Firma Kontenjan Ekleme
+        //Firma Kontenjan Ekleme
+
+        [HttpPost]
+        [Route("API/AddQuotaAcademician")]
+        public string addQuota([FromForm] addQuotaModel model)
+        {
+            try
+            {
+                companyDepartmantManager.Insert(new Models.CompanyDepartment()
+                {
+                    CompanyId = model.CompanyId,
+                    DepartmentId = model.DepartmentId,
+                    Amount = model.Amount,
+                });
+            }
+            catch (Exception)
+            {
+                companyDepartmantManager.GetObject(model.CompanyId, model.DepartmentId, model.Amount);
+            }
+
+            return JsonConvert.SerializeObject(new { success = true, message = "Tebrikler" });
+
+        }
+        public IActionResult AddCompanyQuota()
+        {
+            var addQuotaViewModel = new AddQuotaViewModel();
+            addQuotaViewModel.CompanyDepartment = companyDepartmantManager.AllCompaniesDepartment().ToList();
+            addQuotaViewModel.Companies = companyManager.AllCompanies().ToList();
+            addQuotaViewModel.Departments = departmantManager.AllDepartments().ToList();
+            return View(addQuotaViewModel);
+        }
+
+        public class addQuotaModel
+        {
+            public int CompanyId { get; set; }
+            public int DepartmentId { get; set; }
+            public int Amount { get; set; }
+
+
+        }
+
+
+        [HttpGet]
+        [Route("API/quotaListAcademician")]
+        public string QuotaList(int companyId)
+        {
+            var companies = companyDepartmantManager.GetAllDepartment(companyId);
+            var list = (from _company in companies
+                        select new
+                        {
+                            DepartmentName = _company.Department.DepartmentName,
+                            Kontenjan = _company.Amount
+
+                        }).ToList();
+            return JsonConvert.SerializeObject(new { success = true, message = "Tebirkler", data = list });
+        }
+
+
+        [Route("API/selectDepertmentAcademician")]
+        public int SelectDepertment(int companyId, int departmentId)
+        {
+            var amount = companyDepartmantManager.GetId(companyId, departmentId);
+
+            return amount;
+        }
+
+        #endregion
+
     }
 }

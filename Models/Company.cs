@@ -21,6 +21,7 @@ namespace CompanyAgreement.Models
         public ICollection<CompanyDepartment> CompanyDepartments { get; set; }
         public int CompanyInformationId { get; set; }
         public CompanyInformation CompanyInformation { get; set; }
+
         //public virtual CompanyLogin CompanyLogin { get; set; }
 
     }
