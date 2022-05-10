@@ -141,7 +141,7 @@ namespace CompanyAgreement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CompanyAuthorityId")
+                    b.Property<int>("Companyid")
                         .HasColumnType("int");
 
                     b.Property<string>("Password")
@@ -153,9 +153,6 @@ namespace CompanyAgreement.Migrations
                         .HasColumnType("Varchar(20)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompanyAuthorityId")
-                        .IsUnique();
 
                     b.ToTable("CompanyLogin");
                 });
@@ -271,17 +268,6 @@ namespace CompanyAgreement.Migrations
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("CompanyAgreement.Models.CompanyLogin", b =>
-                {
-                    b.HasOne("CompanyAgreement.Models.CompanyAuthority", "CompanyAuthority")
-                        .WithOne("CompanyLogin")
-                        .HasForeignKey("CompanyAgreement.Models.CompanyLogin", "CompanyAuthorityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CompanyAuthority");
-                });
-
             modelBuilder.Entity("CompanyAgreement.Models.ContractInformation", b =>
                 {
                     b.HasOne("CompanyAgreement.Models.Company", "Company")
@@ -315,11 +301,6 @@ namespace CompanyAgreement.Migrations
                     b.Navigation("ContractInformations");
 
                     b.Navigation("ContractSituation");
-                });
-
-            modelBuilder.Entity("CompanyAgreement.Models.CompanyAuthority", b =>
-                {
-                    b.Navigation("CompanyLogin");
                 });
 
             modelBuilder.Entity("CompanyAgreement.Models.CompanyInformation", b =>

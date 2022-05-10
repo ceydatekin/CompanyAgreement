@@ -35,12 +35,11 @@ namespace CompanyAgreement.Manager
         //    //DepartmantManager departmantManager = new DepartmantManager();  
         //    //return departmantManager.AllDepartments().Include(companyId).ToList();   
         //}
-        public Company GetId(int companyId)
-        {
-            return contextManager.Companies.SingleOrDefault(s => s.Id == companyId);
-        }
+        public Company GetId(int companyId) => contextManager.Companies.SingleOrDefault(s => s.Id == companyId);
+     
         public List<Company> AllCompanies() => contextManager.Companies.ToList();
-        
-      
+
+
+
     }
 }

@@ -4,11 +4,12 @@ using CompanyAgreement.modelview;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CompanyAgreement.Controllers
 {
-    public class AdminController : Controller
+    public class AcademicianController : Controller
     {
         #region Manager
         CompanyManager companyManager = new CompanyManager();
@@ -18,25 +19,6 @@ namespace CompanyAgreement.Controllers
         CompanyDepartmantManager companyDepartmantManager = new CompanyDepartmantManager();
         CompanyAuthorityManager companyAuthorityManager = new CompanyAuthorityManager();
         DepartmantManager departmantManager = new DepartmantManager();
-        #endregion
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        #region Firma Listele
-
-        public IActionResult ListCompany()
-        {
-            var companyListViewModel = new CompanyListViewModel();
-            companyListViewModel.Company = companyManager.AllCompanies().ToList();
-            companyListViewModel.CompanyDepartment = companyDepartmantManager.AllCompaniesDepartment().ToList();
-            companyListViewModel.CompanyInformation = companyInformationManager.AllCompanyInformation().ToList();
-            companyListViewModel.CompanyAuthority = companyAuthorityManager.AllCompanyAuthority().ToList();
-            companyListViewModel.ContractSituation = cantractSituationManager.AllCantractSituation().ToList();
-            companyListViewModel.ContractInformation = contractInformationManager.AllContractInformation().ToList();
-            return View(companyListViewModel);
-        }
         #endregion
 
         #region Firma Ekleme
@@ -48,7 +30,7 @@ namespace CompanyAgreement.Controllers
 
         //Firma Giriş Sayfasındaki Form veri tabanına ekleme API'si
         [HttpPost]
-        [Route("API/AddCompany")]
+        [Route("API/AddCompanyAcademician")]
         public string addCompany([FromForm] addCompanyModel model)
         {
             {
@@ -84,74 +66,37 @@ namespace CompanyAgreement.Controllers
 
         #endregion
 
-        #region Firma Kontenjan Ekleme
-        //Firma Kontenjan Ekleme
-        [HttpPost]
-        [Route("API/AddQuota")]
+        #region Firma Listele
 
-        public string addQuota([FromForm] addQuotaModel model)
+        public IActionResult ListCompany()
         {
-            try
+            var companyDepartmentList = companyDepartmantManager.GetAcademicianCompany(1).ToList();
+
+            List<Company> companyList = new List<Company>();
+            List<CompanyInformation> companyInformation = new List<CompanyInformation>();
+            List<CompanyAuthority> companyAuthority = new List<CompanyAuthority>();
+            List<ContractSituation> contractSituation = new List<ContractSituation>();
+            List<ContractInformation> contractInformation = new List<ContractInformation>();
+
+            foreach (var item in companyDepartmentList)
             {
-                companyDepartmantManager.Insert(new Models.CompanyDepartment()
-                {
-                    CompanyId = model.CompanyId,
-                    DepartmentId = model.DepartmentId,
-                    Amount = model.Amount,
-                });
-            }
-            catch (Exception)
-            {
-                companyDepartmantManager.GetObject(model.CompanyId, model.DepartmentId, model.Amount);
+                companyList.Add(companyManager.GetId(item.CompanyId));
+                companyInformation.Add(companyInformationManager.GetCompyIdInformation(item.CompanyId));
+                companyAuthority.Add(companyAuthorityManager.GetId(item.CompanyId));
+                contractSituation.Add(cantractSituationManager.GetId(item.CompanyId));
+                contractInformation.Add(contractInformationManager.GetId(item.CompanyId));
+
             }
 
-            return JsonConvert.SerializeObject(new { success = true, message = "Tebrikler" });
-
+            var companyListViewModel = new AcademicianCompanyListViewModel();
+            companyListViewModel.Company = companyList;
+            companyListViewModel.CompanyDepartment = companyDepartmentList;
+            companyListViewModel.CompanyInformation = companyInformation;
+            companyListViewModel.CompanyAuthority = companyAuthority;
+            companyListViewModel.ContractSituation = contractSituation;
+            companyListViewModel.ContractInformation = contractInformation;
+            return View(companyListViewModel);
         }
-        public IActionResult AddCompanyQuota()
-        {
-            var addQuotaViewModel = new AddQuotaViewModel();
-            addQuotaViewModel.CompanyDepartment = companyDepartmantManager.AllCompaniesDepartment().ToList();
-            addQuotaViewModel.Companies = companyManager.AllCompanies().ToList();
-            addQuotaViewModel.Departments = departmantManager.AllDepartments().ToList();
-            return View(addQuotaViewModel);
-        }
-
-        public class addQuotaModel
-        {
-            public int CompanyId { get; set; }
-            public int DepartmentId { get; set; }
-            public int Amount { get; set; }
-
-
-        }
-
-
-        [HttpGet]
-        [Route("API/quotaList")]
-        public string QuotaList(int companyId)
-        {
-            var companies = companyDepartmantManager.GetAllDepartment(companyId);
-            var list = (from _company in companies
-                                   select new
-                                   {
-                                       DepartmentName = _company.Department.DepartmentName,
-                                       Kontenjan = _company.Amount
-
-                                   }).ToList();
-            return JsonConvert.SerializeObject(new { success = true, message = "Tebirkler", data = list });
-        }
-
-       
-        [Route("API/selectDepertment")]
-        public int SelectDepertment(int companyId, int departmentId)
-        {
-            var amount = companyDepartmantManager.GetId(companyId, departmentId);
-
-            return amount;
-        }
-
         #endregion
     }
 }
-

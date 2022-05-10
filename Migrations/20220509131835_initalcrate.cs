@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CompanyAgreement.Migrations
 {
-    public partial class initialcreate : Migration
+    public partial class initalcrate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -53,6 +53,21 @@ namespace CompanyAgreement.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CompanyLogin",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "Varchar(20)", maxLength: 20, nullable: true),
+                    Password = table.Column<string>(type: "Varchar(20)", maxLength: 20, nullable: true),
+                    Companyid = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompanyLogin", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Departments",
                 columns: table => new
                 {
@@ -63,27 +78,6 @@ namespace CompanyAgreement.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Departments", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CompanyLogin",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "Varchar(20)", maxLength: 20, nullable: true),
-                    Password = table.Column<string>(type: "Varchar(20)", maxLength: 20, nullable: true),
-                    CompanyAuthorityId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CompanyLogin", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CompanyLogin_CompanyAuthorities_CompanyAuthorityId",
-                        column: x => x.CompanyAuthorityId,
-                        principalTable: "CompanyAuthorities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -196,12 +190,6 @@ namespace CompanyAgreement.Migrations
                 name: "IX_CompanyDepartments_CompanyId",
                 table: "CompanyDepartments",
                 column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CompanyLogin_CompanyAuthorityId",
-                table: "CompanyLogin",
-                column: "CompanyAuthorityId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ContractInformation_CompanyId",
