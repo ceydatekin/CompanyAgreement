@@ -26,7 +26,7 @@ namespace CompanyAgreement.Manager
 
             return amount.Amount;
         }
-
+        public List<CompanyDepartment> GetAcademicianCompany(int departmentId) => contextManager.CompanyDepartments.Where(s =>  s.DepartmentId == departmentId).ToList();
 
         public List<CompanyDepartment> GetAllDepartment(int companyId)
         {

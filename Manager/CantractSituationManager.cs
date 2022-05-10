@@ -11,7 +11,7 @@ namespace CompanyAgreement.Manager
     {
         Context contextManager = ContextManager.GetContext();
         public List<ContractSituation> AllCantractSituation() => this.contextManager.ContractSituation.ToList();
-
+        public ContractSituation GetId(int companyId) => contextManager.ContractSituation.SingleOrDefault(s => s.Id == companyId);
         public void AddContractSituation(string Situation,string Description, int CompanyId)
         {
             Insert(new Models.ContractSituation()

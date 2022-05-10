@@ -11,5 +11,6 @@ namespace CompanyAgreement.Manager
     {
         Context contextManager = ContextManager.GetContext();
         public List<CompanyAuthority> AllCompanyAuthority() => this.contextManager.CompanyAuthorities.ToList();
+        public CompanyAuthority GetId(int companyId) => contextManager.CompanyAuthorities.SingleOrDefault(s => s.Id == companyId);
     }
 }

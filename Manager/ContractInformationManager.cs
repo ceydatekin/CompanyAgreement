@@ -12,7 +12,7 @@ namespace CompanyAgreement.Manager
 
         Context contextManager = ContextManager.GetContext();
         public List<ContractInformation> AllContractInformation() => this.contextManager.ContractInformation.ToList();
-
+        public ContractInformation GetId(int companyId) => contextManager.ContractInformation.SingleOrDefault(s => s.Id == companyId);
         public void addContractInformation(string mail, string Gsm, string adress, string province, string district )
         {
           Insert(new Models.ContractInformation()

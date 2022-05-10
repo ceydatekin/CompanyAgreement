@@ -1,0 +1,116 @@
+﻿
+@model CompanyAgreement.modelview.AcademicianCompanyListViewModel
+@{
+    ViewData["Title"] = "ListCompany";
+    Layout = "~/Views/Shared/_AcademicianLayout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <label>Firma Listesi</label>
+    </div>
+    <div class="col-md-12" @*style="text-align-last: center;"*@ style="margin-left: 10px; margin-top: 5px; ">
+        <div class="card-content">
+            <div class="row" style="align-content:flex-start">
+
+                <div class="col-sm-3">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>Firmaların Onay Durumu</label>
+                        <select class="form-control">
+                            <option>K1-Olumlu</option>
+                            <option>K2-Olumsuz</option>
+                            <option>K4-Bekleme Aşaması</option>
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>Kamu/Özel Durumu</label>
+                        <select class="form-control">
+                            <option>Kamu</option>
+                            <option>Özel</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>Konuma Göre</label>
+                        <select class="form-control">
+                            <option>İstanbul</option>
+                            <option>İzmir</option>
+                            <option>Bursa</option>
+                            <option>Çanakkale</option>
+                            <option>Kocaeli</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-3" @*style="align-self: center; float: left text-align-last: center;"*@>
+                    <label></label>
+                    <div class="form-group">
+                        <button style="height:45px" type="button" id="companyadd" class="btn btn-info  swalDefaultInfo">
+                            Filtrele
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- select -->
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Firma Adı</th>
+                    <th>Kamu/Özel Durumu</th>
+                    <th>Anlaşma Durumu</th>
+                    @*  <th>Açılan Kontenjan</th>*@
+                    <th>Görüşme Tarihi</th>
+                    <th>İlgili Kişi</th>
+                    <th>Bulunduğu İl</th>
+
+                </tr>
+            </thead>
+
+
+            <tbody>
+
+                @for (int i = 0; i < Model.Company.Count; i++)
+                {
+                    <tr>
+                        <td>@Model.Company[i].CompanyName</td>
+                        @if (@Model.Company[i].PublicPrivate)
+                        {
+                            <td>Özel</td>
+                        }
+                        else
+                        {
+                            <td>Kamu</td>
+                        }
+                        <td>@Model.ContractSituation[i].Situation </td>
+                        <td>@Model.Company[i].MeetingDate</td>
+                        <td>@Model.CompanyInformation[i].Name  @Model.CompanyInformation[i].Surname</td>
+                        <td>@Model.ContractInformation[i].Province / @Model.ContractInformation[i].District </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
