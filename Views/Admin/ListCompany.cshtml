@@ -80,6 +80,7 @@
                     <th>Görüşme Tarihi</th>
                     <th>İlgili Kişi</th>
                     <th>Bulunduğu İl</th>
+                    <th>Düzenle</th>
 
                 </tr>
             </thead>
@@ -103,6 +104,9 @@
                         <td>@Model.Company[i].MeetingDate</td>
                         <td>@Model.CompanyInformation[i].Name  @Model.CompanyInformation[i].Surname</td>
                         <td>@Model.ContractInformation[i].Province / @Model.ContractInformation[i].District </td>
+                        <td><a class="btn btn-app">
+                  <i class="fas fa-edit"></i> Düzenle
+                </a> </td>
 
                     </tr>
                 }

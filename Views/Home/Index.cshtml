@@ -2,166 +2,54 @@
     Layout = null;
 }
 
-
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 3 | Log in</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 3 | Log in</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="~/CompanyAggrementWeb/plugins/fontawesome-free/css/all.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="~/CompanyAggrementWeb/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="~/CompanyAggrementWeb/dist/css/adminlte.min.css">
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="~/CompanyAggrementWeb/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="~/CompanyAggrementWeb/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="~/CompanyAggrementWeb/dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
-    <style type="text/css">
-
-        body {
-            background-image: url(http://www.joburgchiropractor.co.za/images/background.jpg);
-        }
-
-    </style>
-
-
-
-</head>
-<body>
-
-    <!-- if you want to create login page and register page together in one page ...you have to only chnage his name...that's it...                 -->
-    <div class="container" style="margin-top: 5%;">
-        <div class="row">
-            <div class="col-sm-4"> </div>
-            <div class="col-md-4">
-
+<body class="hold-transition login-page">
+<div class="login-box">
+  
                 <div class="login-logo">
                     <img class="brand-image img-circle elevation-3" src="~/CompanyAggrementWeb/dist/img/Sep-Imep-Logo.jpeg" />
                 </div>
-                <br />
+                <br/>
+               
 
-                <div class="col-sm-12">
+                <a href="~/Home/OidbLogin" class="nav-link">
+             <button type="button" class="btn btn-block btn-default .btn-sm">Oidb Giriş</button>
+             
+            </a>
 
-                    <ul class="nav nav-pills">
+               <a href="~/Home/AcademicianLogin" class="nav-link">
+             <button type="button" class="btn btn-block btn-default .btn-sm">Akademisyen Giriş</button>
+             
+            </a>
 
-
-
-                        <li class="" style="width:50%"><a class="btn btn-lg btn-default" data-toggle="tab" href="#home">Doctor</a></li>
-
-                        <li class=" " style="width:48%"><a class=" btn btn-lg btn-default" data-toggle="tab" href="#menu1">patient</a></li>
-
-
-
-                    </ul>
-
-                    <br />
-
-
-                    <div class="tab-content">
-                        <div id="home" class="tab-pane fade in active">
-
-                            <form action="#">
-
-                                <div class="form-group">
-                                    <label for="UserName">Doctor-name</label>
-                                    <input type="text" class="form-control" id="email">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="email">Email address:</label>
-                                    <input type="email" class="form-control" id="email">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="pwd">Password:</label>
-                                    <input type="password" class="form-control" id="pwd">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="pwd">Confirm Password:</label>
-                                    <input type="password" class="form-control" id="pwd">
-                                </div>
-
-
-
-                                <button type="submit" class="btn btn-default btn-lg">Submit</button>
-                                <button type="submit" class=" pull-right btn-link"><a href="www.google.com">Forget password</a></button>
-
-                            </form>
-                            <br />
-                            <a href="#" class="pull-right btn btn-block btn-danger"> Already Register ?   </a>
-
-
-
-                        </div>
-
-                        <div id="menu1" class="tab-pane fade">
-
-                            <form action="#">
-
-                                <div class="form-group">
-                                    <label for="UserName">UserName</label>
-                                    <input type="text" class="form-control" id="email">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="email">Email address:</label>
-                                    <input type="email" class="form-control" id="email">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="pwd">Password:</label>
-                                    <input type="password" class="form-control" id="pwd">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="pwd">Confirm Password:</label>
-                                    <input type="password" class="form-control" id="pwd">
-                                </div>
-
-
-
-                                <button type="submit" class="btn btn-default">Submit</button>
-
-                                <button type="submit" class=" pull-right btn-link"><a href="www.google.com">Forget password</a></button>
-
-                            </form>
-                            <br />
-                            <a href="#" class="pull-right btn btn-block btn-success"> Already Register ?   </a>
-
-
-
-
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- This design is created by manoj chauhan  -->
-</body>
-</html>
+               <a href="~/Home/CompanyLogin" class="nav-link">
+             <button type="button" class="btn btn-block btn-default .btn-sm">Firma Giriş</button>
+             
+            </a>
+  <!-- /.login-logo -->
+ 
+</div>
 <!-- /.login-box -->
+
 <!-- jQuery -->
 <script src="~/CompanyAggrementWeb/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -169,6 +57,6 @@
 <!-- AdminLTE App -->
 <script src="~/CompanyAggrementWeb/dist/js/adminlte.min.js"></script>
 
-
-
+</body>
+</html>
 
