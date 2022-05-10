@@ -11,6 +11,23 @@ namespace CompanyAgreement.Manager
     {
         Context contextManager = ContextManager.GetContext();
         public List<CompanyAuthority> AllCompanyAuthority() => this.contextManager.CompanyAuthorities.ToList();
-        public CompanyAuthority GetId(int companyId) => contextManager.CompanyAuthorities.SingleOrDefault(s => s.Id == companyId);
+        public CompanyAuthority GetId(int companyId)
+        {
+            var item = contextManager.CompanyAuthorities.SingleOrDefault(s => s.Id == companyId);
+            if (item == null)
+                return null;
+            return item;
+        }
+
+        public void addCompanyAuthority(string SGKno, string TaxNumber, DateTime ContractDate, int session)
+        {
+            Insert(new Models.CompanyAuthority()
+            {
+                SGKNO = SGKno,
+                TaxNumber = TaxNumber,
+                ContractDate = ContractDate,
+                CompanyId = session,
+            });
+        }
     }
 }

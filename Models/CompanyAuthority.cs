@@ -11,7 +11,9 @@ namespace CompanyAgreement.Models
         public string SGKNO { get; set; }
         public string TaxNumber { get; set; }
         public DateTime ContractDate { get; set; }
-     //   public  ContractSituation ContractSituation { get; set; }
+        public int CompanyId { get; set; }
+
+        //   public  ContractSituation ContractSituation { get; set; }
 
     }
 }

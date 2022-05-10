@@ -11,7 +11,7 @@ $('body').on('click', '#quotaAdd', function () {
     formdata.append('Amount', Amount);
 
     $.ajax({
-        url: '/API/AddQuotaAdmin',
+        url: '/API/AddQuotaAcademician',
         method: 'post',
         data: formdata,
         processData: false,
@@ -35,19 +35,6 @@ $('body').on('click', '#quotaAdd', function () {
     });
 });
 
-//$('body').on('change', '#CompanyId', function () {
-//    console.log("fdskjfhşekalf")
-//    $('#selectQuota').on('show.bs.modal', function (event) {
-//        //var button = $(event.relatedTarget) 
-//        console.log("")
-//        var recipient = 
-//        var modal = $(this)
-
-//        modal.find('.modal-body input').val(recipient)
-//        console.log(recipient)
-//    })
-//});
-
 
 $('#selectQuota').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
@@ -67,7 +54,7 @@ $('body').on('change', '#Department', function () {
     console.log(DepartmentId)
 
     $.ajax({
-        url: '/API/selectDepertmentAdmin',
+        url: '/API/selectDepertmentAcademician',
         type: 'GET',
         contentType: 'json',
         data: { companyId: CompanyId, departmentId: DepartmentId },
@@ -83,13 +70,12 @@ $('body').on('change', '#Department', function () {
 });
 
 
-
 var datatable;
 function Listele() {
     var companyId = $('#CompanyId').val();
     $.ajax({
         type: 'GET',
-        url: '/API/quotaListAdmin?companyId=' + companyId,
+        url: '/API/quotaListAcademician?companyId=' + companyId,
         contentType: "application/json; charset=utf-8",
         async: false,
         cache: false,

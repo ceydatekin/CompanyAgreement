@@ -19,10 +19,6 @@ namespace CompanyAgreement.Controllers
         CompanyAuthorityManager companyAuthorityManager = new CompanyAuthorityManager();
         DepartmantManager departmantManager = new DepartmantManager();
         #endregion
-        public IActionResult Login()
-        {
-            return View();
-        }
 
         #region Firma Listele
 
@@ -48,7 +44,7 @@ namespace CompanyAgreement.Controllers
 
         //Firma Giriş Sayfasındaki Form veri tabanına ekleme API'si
         [HttpPost]
-        [Route("API/AddCompany")]
+        [Route("API/AddCompanyAdmin")]
         public string addCompany([FromForm] addCompanyModel model)
         {
             {
@@ -87,7 +83,7 @@ namespace CompanyAgreement.Controllers
         #region Firma Kontenjan Ekleme
         //Firma Kontenjan Ekleme
         [HttpPost]
-        [Route("API/AddQuota")]
+        [Route("API/AddQuotaAdmin")]
 
         public string addQuota([FromForm] addQuotaModel model)
         {
@@ -128,7 +124,7 @@ namespace CompanyAgreement.Controllers
 
 
         [HttpGet]
-        [Route("API/quotaList")]
+        [Route("API/quotaListAdmin")]
         public string QuotaList(int companyId)
         {
             var companies = companyDepartmantManager.GetAllDepartment(companyId);
@@ -143,7 +139,7 @@ namespace CompanyAgreement.Controllers
         }
 
        
-        [Route("API/selectDepertment")]
+        [Route("API/selectDepertmentAdmin")]
         public int SelectDepertment(int companyId, int departmentId)
         {
             var amount = companyDepartmantManager.GetId(companyId, departmentId);

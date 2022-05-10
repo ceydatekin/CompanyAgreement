@@ -19,6 +19,37 @@ namespace CompanyAgreement.Migrations
                 .HasAnnotation("ProductVersion", "5.0.14")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("CompanyAgreement.Models.AcademicianLogin", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AcademicianDepartment")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(20)
+                        .HasColumnType("Varchar(20)");
+
+                    b.Property<string>("Password")
+                        .HasMaxLength(20)
+                        .HasColumnType("Varchar(20)");
+
+                    b.Property<string>("Surname")
+                        .HasMaxLength(20)
+                        .HasColumnType("Varchar(20)");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(20)
+                        .HasColumnType("Varchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AcademicianLogins");
+                });
+
             modelBuilder.Entity("CompanyAgreement.Models.AdminLogin", b =>
                 {
                     b.Property<int>("Id")
@@ -72,6 +103,9 @@ namespace CompanyAgreement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("ContractDate")
                         .HasColumnType("datetime2");
@@ -199,9 +233,6 @@ namespace CompanyAgreement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CompanyAuthorityId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
@@ -213,8 +244,6 @@ namespace CompanyAgreement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompanyAuthorityId");
 
                     b.HasIndex("CompanyId")
                         .IsUnique();
@@ -279,10 +308,6 @@ namespace CompanyAgreement.Migrations
 
             modelBuilder.Entity("CompanyAgreement.Models.ContractSituation", b =>
                 {
-                    b.HasOne("CompanyAgreement.Models.CompanyAuthority", "CompanyAuthority")
-                        .WithMany()
-                        .HasForeignKey("CompanyAuthorityId");
-
                     b.HasOne("CompanyAgreement.Models.Company", "Company")
                         .WithOne("ContractSituation")
                         .HasForeignKey("CompanyAgreement.Models.ContractSituation", "CompanyId")
@@ -290,8 +315,6 @@ namespace CompanyAgreement.Migrations
                         .IsRequired();
 
                     b.Navigation("Company");
-
-                    b.Navigation("CompanyAuthority");
                 });
 
             modelBuilder.Entity("CompanyAgreement.Models.Company", b =>

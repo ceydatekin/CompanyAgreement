@@ -3,10 +3,27 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CompanyAgreement.Migrations
 {
-    public partial class initalcrate : Migration
+    public partial class initialcreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AcademicianLogins",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "Varchar(20)", maxLength: 20, nullable: true),
+                    Name = table.Column<string>(type: "Varchar(20)", maxLength: 20, nullable: true),
+                    Surname = table.Column<string>(type: "Varchar(20)", maxLength: 20, nullable: true),
+                    Password = table.Column<string>(type: "Varchar(20)", maxLength: 20, nullable: true),
+                    AcademicianDepartment = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AcademicianLogins", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AdminLogins",
                 columns: table => new
@@ -29,7 +46,8 @@ namespace CompanyAgreement.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SGKNO = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TaxNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContractDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ContractDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -160,8 +178,7 @@ namespace CompanyAgreement.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Situation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "Varchar(50)", maxLength: 50, nullable: true),
-                    CompanyId = table.Column<int>(type: "int", nullable: false),
-                    CompanyAuthorityId = table.Column<int>(type: "int", nullable: true)
+                    CompanyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -172,12 +189,6 @@ namespace CompanyAgreement.Migrations
                         principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ContractSituation_CompanyAuthorities_CompanyAuthorityId",
-                        column: x => x.CompanyAuthorityId,
-                        principalTable: "CompanyAuthorities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -197,11 +208,6 @@ namespace CompanyAgreement.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ContractSituation_CompanyAuthorityId",
-                table: "ContractSituation",
-                column: "CompanyAuthorityId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ContractSituation_CompanyId",
                 table: "ContractSituation",
                 column: "CompanyId",
@@ -211,7 +217,13 @@ namespace CompanyAgreement.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AcademicianLogins");
+
+            migrationBuilder.DropTable(
                 name: "AdminLogins");
+
+            migrationBuilder.DropTable(
+                name: "CompanyAuthorities");
 
             migrationBuilder.DropTable(
                 name: "CompanyDepartments");
@@ -230,9 +242,6 @@ namespace CompanyAgreement.Migrations
 
             migrationBuilder.DropTable(
                 name: "Companies");
-
-            migrationBuilder.DropTable(
-                name: "CompanyAuthorities");
 
             migrationBuilder.DropTable(
                 name: "CompanyInformation");

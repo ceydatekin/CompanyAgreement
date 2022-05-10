@@ -25,7 +25,7 @@ namespace CompanyAgreement.Models
         public DbSet<ContractInformation> ContractInformation { get; set; }
         public DbSet<ContractSituation> ContractSituation { get; set; }
         public DbSet<Department> Departments { get; set; }
-
+        public DbSet<AcademicianLogin> AcademicianLogins { get; set; }
         public Context(DbContextOptions<Context> options)
        : base(options) { }
 

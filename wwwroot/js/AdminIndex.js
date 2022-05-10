@@ -33,7 +33,7 @@ $('body').on('click', '#companyadd', function () {
 
     console.log("eklemei is şladmlas")
     $.ajax({
-        url: '/API/AddCompany',
+        url: '/API/AddCompanyAdmin',
         method: 'post',
         data: formdata,
         processData: false,
