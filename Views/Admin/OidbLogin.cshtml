@@ -1,0 +1,99 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Öğrenci İşleri Girişi</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="~/CompanyAggrementWeb/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="~/CompanyAggrementWeb/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="~/CompanyAggrementWeb/dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  
+                <div class="login-logo">
+                    <img class="brand-image img-circle elevation-3" src="~/CompanyAggrementWeb/dist/img/Sep-Imep-Logo.jpeg" />
+                </div>
+                <br/>
+               
+  <!-- /.login-logo -->
+    <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Oturumunuzu Başlatın</p>
+
+      <form action="../../index3.html" method="post">
+        <div class="input-group mb-3">
+          <input type="email" id="userName"  class="form-control" placeholder="Email">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" id="password" class="form-control" placeholder="Şifre">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+               Beni Hatırla
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <input type="button" class="btn btn-primary btn-block" id="login-submit" value="Giriş Yap" > 
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      
+      <!-- /.social-auth-links -->
+
+      <p class="mb-1">
+        <a href="forgot-password.html">Şifremi Unuttum</a>
+      </p>
+      <p class="mb-0">
+        <a href="register.html" class="text-center">Yeni Kullanıcı Oluştur</a>
+      </p>
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="~/CompanyAggrementWeb/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="~/CompanyAggrementWeb/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/CompanyAggrementWeb/dist/js/adminlte.min.js"></script>
+    <script src="~/js/OidbLogin.js" asp-append-version="true"></script>
+
+</body>
+</html>
+
