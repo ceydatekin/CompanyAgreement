@@ -30,6 +30,8 @@ namespace CompanyAgreement
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
+            services.AddSession();
             services.AddDbContext<Context>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("CompanyAggrementContext"));
@@ -55,10 +57,11 @@ namespace CompanyAgreement
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthorization();
 
             if (env.IsDevelopment())

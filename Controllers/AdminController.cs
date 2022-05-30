@@ -1,7 +1,10 @@
-﻿using CompanyAgreement.Manager;
+﻿using CompanyAgreement.Helper;
+using CompanyAgreement.Manager;
 using CompanyAgreement.Models;
 using CompanyAgreement.modelview;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
@@ -18,12 +21,77 @@ namespace CompanyAgreement.Controllers
         CompanyDepartmantManager companyDepartmantManager = new CompanyDepartmantManager();
         CompanyAuthorityManager companyAuthorityManager = new CompanyAuthorityManager();
         DepartmantManager departmantManager = new DepartmantManager();
+
+        private readonly ILogger<AdminController> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        AdminLoginManager adminLoginManager = new AdminLoginManager();
+        SessionHelper sessionHelper;
+
+        #endregion
+
+        #region Controller 
+        public AdminController(ILogger<AdminController> logger, IHttpContextAccessor httpContextAccessor)
+        {
+            _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
+            sessionHelper = new SessionHelper(_httpContextAccessor);
+
+        }
+
+        #endregion
+
+        #region Login kontrolü session yapısı
+        public IActionResult OidbLogin()
+        {
+            return View();
+        }
+
+        [Route("API/AdminLogin")]
+        [HttpPost]
+        public bool AdminLogin([FromForm] AdminUserModel model)
+        {
+
+            var user = adminLoginManager.GetUser(model.userName, model.password);
+            if (user == null)
+            {
+                return false;
+            }
+            else
+            {
+                sessionHelper.Set("UserAdminName", model.userName);
+                sessionHelper.Set("UserAdminId", user.Id);
+
+                return true;
+
+            }
+        }
+        public class AdminUserModel
+        {
+            public string userName { get; set; }
+            public string password { get; set; }
+        }
+
+        [Route("API/AdminLogout")]
+        [HttpPost]
+        public bool logout()
+        {
+            sessionHelper.Set("UserAdminName", "");
+            sessionHelper.Set("UserAdminId", 0 );
+            return true;
+          //  return View("OidbLogin");
+
+        }
         #endregion
 
         #region Firma Listele
 
         public IActionResult ListCompany()
         {
+            if (String.IsNullOrEmpty(sessionHelper.Get("UserAdminName")))
+            {
+                return RedirectToAction("OidbLogin");
+            }
+
             var companyListViewModel = new CompanyListViewModel();
             companyListViewModel.Company = companyManager.AllCompanies().ToList();
             companyListViewModel.CompanyDepartment = companyDepartmantManager.AllCompaniesDepartment().ToList();
@@ -39,6 +107,10 @@ namespace CompanyAgreement.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            if (String.IsNullOrEmpty(sessionHelper.Get("UserAdminName")))
+            {
+                return RedirectToAction("OidbLogin");
+            }
             return View();
         }
 
@@ -106,6 +178,10 @@ namespace CompanyAgreement.Controllers
         }
         public IActionResult AddCompanyQuota()
         {
+            if (String.IsNullOrEmpty(sessionHelper.Get("UserAdminName")))
+            {
+                return RedirectToAction("OidbLogin");
+            }
             var addQuotaViewModel = new AddQuotaViewModel();
             addQuotaViewModel.CompanyDepartment = companyDepartmantManager.AllCompaniesDepartment().ToList();
             addQuotaViewModel.Companies = companyManager.AllCompanies().ToList();
@@ -146,6 +222,15 @@ namespace CompanyAgreement.Controllers
 
             return amount;
         }
+
+        #endregion
+
+        #region 
+
+        public IActionResult DefineAcademician()
+        {
+            return View();
+        }      
 
         #endregion
     }

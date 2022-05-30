@@ -1,7 +1,10 @@
-﻿using CompanyAgreement.Manager;
+﻿using CompanyAgreement.Helper;
+using CompanyAgreement.Manager;
 using CompanyAgreement.Models;
 using CompanyAgreement.modelview;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,12 +22,78 @@ namespace CompanyAgreement.Controllers
         CompanyDepartmantManager companyDepartmantManager = new CompanyDepartmantManager();
         CompanyAuthorityManager companyAuthorityManager = new CompanyAuthorityManager();
         DepartmantManager departmantManager = new DepartmantManager();
+
+        private readonly ILogger<AcademicianController> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        AcademicianLoginManager academicianLoginManager = new AcademicianLoginManager();
+        SessionHelper sessionHelper;
+
+        #endregion
+
+        #region Controller 
+        public AcademicianController(ILogger<AcademicianController> logger, IHttpContextAccessor httpContextAccessor)
+        {
+            _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
+            sessionHelper = new SessionHelper(_httpContextAccessor);
+
+        }
+
+        #endregion
+
+        #region log -İn -Out
+        public IActionResult AcademicianLogin()
+        {
+            return View();
+        }
+        [Route("API/AcademicianLogin")]
+        [HttpPost]
+        public bool AdminLogin([FromForm] AdminUserModel model)
+        {
+
+            var user = academicianLoginManager.GetUser(model.userName, model.password);
+            if (user == null)
+            {
+                return false;
+            }
+            else
+            {
+                sessionHelper.Set("UserAcademicianName", model.userName);
+                sessionHelper.Set("AcademicianDepartment", user.AcademicianDepartment);
+                sessionHelper.Set("UserAcademicianId", user.Id);
+                return true;
+
+            }
+        }
+        public class AdminUserModel
+        {
+            public string userName { get; set; }
+            public string password { get; set; }
+        }
+
+        [Route("API/AcademicianLogout")]
+        [HttpPost]
+        public bool logout()
+        {
+            sessionHelper.Set("UserAcademicianName", "");
+            sessionHelper.Set("UserAcademicianId", 0);
+            sessionHelper.Set("AcademicianDepartment", 0);
+            return true;
+            //  return View("OidbLogin");
+
+        }
+
+
         #endregion
 
         #region Firma Ekleme
         [HttpGet]
         public IActionResult Index()
         {
+            if (String.IsNullOrEmpty(sessionHelper.Get("UserAcademicianName")))
+            {
+                return RedirectToAction("AcademicianLogin");
+            }
             return View();
         }
 
@@ -70,7 +139,11 @@ namespace CompanyAgreement.Controllers
 
         public IActionResult ListCompany()
         {
-            var companyDepartmentList = companyDepartmantManager.GetAcademicianCompany(1).ToList();
+            if (String.IsNullOrEmpty(sessionHelper.Get("UserAcademicianName")))
+            {
+                return RedirectToAction("AcademicianLogin");
+            }
+            var companyDepartmentList = companyDepartmantManager.GetAcademicianCompany( (int)sessionHelper.Getid("UserAcademicianId")).ToList();
 
             List<Company> companyList = new List<Company>();
             List<CompanyInformation> companyInformation = new List<CompanyInformation>();
@@ -125,10 +198,19 @@ namespace CompanyAgreement.Controllers
         }
         public IActionResult AddCompanyQuota()
         {
+            if (String.IsNullOrEmpty(sessionHelper.Get("UserAcademicianName")))
+            {
+                return RedirectToAction("AcademicianLogin");
+            }
             var addQuotaViewModel = new AddQuotaViewModel();
+            var companyDepartmentList = companyDepartmantManager.GetAcademicianCompany((int)sessionHelper.Getid("UserAcademicianId")).ToList();
+            List<Company> companyList = new List<Company>();
+            companyDepartmentList.ForEach(item => companyList.Add(companyManager.GetId(item.CompanyId)));
+
             addQuotaViewModel.CompanyDepartment = companyDepartmantManager.AllCompaniesDepartment().ToList();
-            addQuotaViewModel.Companies = companyManager.AllCompanies().ToList();
+            addQuotaViewModel.Companies = companyList;
             addQuotaViewModel.Departments = departmantManager.AllDepartments().ToList();
+
             return View(addQuotaViewModel);
         }
 

@@ -1,4 +1,7 @@
-﻿using CompanyAgreement.Models;
+﻿using CompanyAgreement.Helper;
+using CompanyAgreement.Manager;
+using CompanyAgreement.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -17,13 +20,19 @@ namespace CompanyAgreement.Controllers
     public class HomeController : Controller
 
     {
-
         private readonly ILogger<HomeController> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        
+        AdminLoginManager adminLoginManager = new AdminLoginManager();
+        SessionHelper sessionHelper;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
+            sessionHelper = new SessionHelper(_httpContextAccessor);
         }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -40,6 +49,7 @@ namespace CompanyAgreement.Controllers
             return View();
         }
         [HttpGet]
+
         public IActionResult OidbLogin()
         {
             return View();
@@ -55,5 +65,8 @@ namespace CompanyAgreement.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+
     }
 }

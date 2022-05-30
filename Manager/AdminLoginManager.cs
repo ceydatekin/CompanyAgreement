@@ -10,5 +10,7 @@ namespace CompanyAgreement.Manager
 {
     public class AdminLoginManager : IRepository<AdminLogin>
     {
+        public AdminLogin GetUser(string username, string password) =>ContextManager.GetContext().AdminLogins.SingleOrDefault(entity => entity.UserName == username && entity.Password == password);
     }
+
 }
