@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CompanyAgreement.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220510204427_initialcreate")]
-    partial class initialcreate
+    [Migration("20220607113044_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -134,7 +134,7 @@ namespace CompanyAgreement.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
+                    b.Property<int>("CompanyDepartmentId")
                         .HasColumnType("int");
 
                     b.HasKey("DepartmentId", "CompanyId");

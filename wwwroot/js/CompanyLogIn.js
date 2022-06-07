@@ -10,7 +10,7 @@
 
 
     $.ajax({
-        url: '/API/AdminLogin',
+        url: '/API/CompanyLogin',
         method: 'post',
         data: formdata,
         processData: false,
@@ -18,7 +18,7 @@
         success: function (resp) {
 
             if (resp == true) {
-                window.location.href = "/Admin/Index"
+                window.location.href = "/Company/Index"
                 console.log("buradayız2");
             }
             else {
@@ -38,8 +38,11 @@
 $('body').on('click', '#logout', function () {
 
 
+
+
+
     $.ajax({
-        url: '/API/AdminLogout',
+        url: '/API/CompanyLogout',
         method: 'post',
         processData: false,
         contentType: false,
