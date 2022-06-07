@@ -101,7 +101,8 @@ function Listele() {
                 orderCellsTop: true,
                 fixedHeader: true,
                 searching: false,
-                bInfo: true,
+                lengthChange: false,
+                bInfo: false,
                 ordering: true,
                 data: resp.data,
                 columns: [
@@ -110,6 +111,12 @@ function Listele() {
                     },
                     {
                         data: "Kontenjan"
+                    },
+                    {
+                        data: null,
+                        className: "dt-center editor-edit",
+                        defaultContent: '<button style= "border-width: inherit; border-color: white;" data-toggle="modal" data-target="#" class="fas fa-pen"/>',
+                        orderable: false
                     },
                 ],
                 columnDefs: [],
@@ -123,6 +130,7 @@ function Listele() {
         }
     });
 };
+
 $('body').on('change', '#CompanyId', function () {
     $(document).ready(function () { Listele() });
 });

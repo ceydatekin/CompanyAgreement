@@ -1,10 +1,8 @@
-@model CompanyAgreement.modelview.AddQuotaViewModel
+﻿@model CompanyAgreement.modelview.CompanyQuotaViewModel
 @{
     ViewData["Title"] = "AddCompanyQuota";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_CompanyLayout.cshtml";
 }
-
-
 
 <section class="content">
     <div class="container-fluid">
@@ -26,18 +24,22 @@
                             <div class="form-group">
 
                                 <div class="form-group">
-                                    <label>Firma Seçiniz</label>
-                                    <select class="form-control" id="CompanyId">
+                                    <label>Bölümü Seçiniz</label>
+                                    <select id="DepartmentId" class="custom-select">
                                         <option value="-1">Seçiniz</option>
-                                        @foreach (var item in Model.Companies)
+                                        @foreach (var item in Model.Departments)
                                         {
-                                            <option value="@item.Id">@item.CompanyName </option>
+                                            <option value="@item.Id">@item.DepartmentName</option>
                                         }
                                     </select>
 
                                 </div>
-                                 <button type="button" class="btn" data-toggle="modal" data-target="#selectQuota">Firmaya Bölüm Ekle </button>
-
+                                <br>
+                                <input class="form-control" id="Amount" type="text" placeholder="Kontenjan Sayısını Giriniz">
+                                <br>
+                                <button type="button" id="CompanyAddQuota" class="btn btn-info swalDefaultInfo">
+                                    Kontenjan Ekle
+                                </button>
                             </div>
                         </div>
                         <!-- /.form-group -->
@@ -49,53 +51,6 @@
         </div>
 
 </section>
-
-
-
-<div class="modal fade" tabindex="-1" role="dialog" id="selectQuota">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Kontenjan Ekleme</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-            </div>
-            <div class="modal-body">
-
-                <div class="row " style="margin:2px; padding:10px">
-                    <div class="input-group flex-nowrap col">
-
-                        <span class="input-group-text" id="addon-wrapping">Bölümü</span>
-                        <select class="form-control" id="Department">
-                            <option value="-1">Seçiniz</option>
-                            @foreach (var item in Model.Departments)
-                            {
-                                <option value="@item.Id">@item.DepartmentName </option>
-                            }
-                        </select>
-                        @*@ViewBag.liste.*@
-                    </div>
-                </div>
-                <div class="row " style="margin:2px; padding:10px">
-                    <div class="input-group flex-nowrap col">
-                        <span class="input-group-text" id="addon-wrapping">Öğrenci Miktari</span>
-                        <input type="text" class="form-control" placeholder="Öğrenci Miktari" aria-describedby="addon-wrapping" id="Amount">
-
-                    </div>
-                </div>
-                <div class="form-group" style="visibility : hidden">
-                    <input type="text" class="form-control" id="recipient-name">
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
-                <button type="button" class="btn btn-primary" id="quotaAdd">Ekle</button>
-            </div>
-
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
 
 <section class="content">
 
@@ -116,3 +71,41 @@
 </section>
 
 
+
+<div class="modal fade" tabindex="-1" role="dialog" id="updateAmount">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Kontenjan Ekleme</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+            </div>
+            <div class="modal-body">
+
+                <div class="row " style="margin:2px; padding:10px">
+
+                    <div class="input-group flex-nowrap col">
+                        <span class="input-group-text" id="addon-wrapping">Öğrenci Miktari</span>
+                        <input type="text" class="form-control" placeholder="Öğrenci Miktari" aria-describedby="addon-wrapping" id="ModalAmount">
+
+                    </div>
+                </div>
+                <div class="row " style="margin:2px; padding:10px">
+
+                    <div class="input-group flex-nowrap col">
+                        <span class="input-group-text" id="addon-wrapping">Bölümü</span>
+                        <input type="text" class="form-control" id="ModalDepartmentName" disabled>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" id="CompanyUpdateQuoata">Güncelle</button>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

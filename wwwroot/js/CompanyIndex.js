@@ -34,3 +34,6 @@ $('body').on('click', '#companyadd', function () {
         }
     });
 });
+
+
+
