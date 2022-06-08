@@ -4,7 +4,6 @@ $('body').on('click', '#quotaAdd', function () {
     var CompanyId = $('#recipient-name').val();
     var DepartmentId = $('#Department').val();
     var Amount = $('#Amount').val();
-
     var formdata = new FormData();
     formdata.append('CompanyId', CompanyId);
     formdata.append('DepartmentId', DepartmentId);
@@ -35,19 +34,41 @@ $('body').on('click', '#quotaAdd', function () {
     });
 });
 
-//$('body').on('change', '#CompanyId', function () {
-//    console.log("fdskjfhşekalf")
-//    $('#selectQuota').on('show.bs.modal', function (event) {
-//        //var button = $(event.relatedTarget) 
-//        console.log("")
-//        var recipient = 
-//        var modal = $(this)
 
-//        modal.find('.modal-body input').val(recipient)
-//        console.log(recipient)
-//    })
-//});
+$('body').on('click', '#CompanyUpdateQuoata', function () {
+    var CompanyId = $('#recipient-name').val();
+    var ModalDepartmentName = $('#ModalDepartmentName').val();
+    var ModalAmount = $('#ModalAmount').val();
 
+    var formdata = new FormData();
+    formdata.append('CompanyId', CompanyId);
+    formdata.append('ModalDepartmentName', ModalDepartmentName);
+    formdata.append('ModalAmount', ModalAmount);
+
+    $.ajax({
+        url: '/API/UpdateQuotaAdmin',
+        method: 'post',
+        data: formdata,
+        processData: false,
+        contentType: false,
+        success: function (resp) {
+            console.log(resp)
+            var jsonResp = JSON.parse(resp);
+            console.log(jsonResp)
+            if (jsonResp.success == true) {
+                console.log("başarılı")
+                $('#updateAmountAdmin').modal('hide')
+                $(document).ready(function () { Listele() });
+            }
+
+            else if (jsonResp.success == false)
+                console.log("hata olustu")
+        },
+        error: function (err) {
+            console.log(err)
+        }
+    });
+});
 
 $('#selectQuota').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
@@ -115,7 +136,7 @@ function Listele() {
                     {
                         data: null,
                         className: "dt-center editor-edit",
-                        defaultContent: '<button style= "border-width: inherit; border-color: white;" data-toggle="modal" data-target="#" class="fas fa-pen"/>',
+                        defaultContent: '<button style= "border-width: inherit; border-color: white;" data-toggle="modal" data-target="#updateAmountAdmin" class="fas fa-pen"/>',
                         orderable: false
                     },
                 ],
@@ -134,3 +155,19 @@ function Listele() {
 $('body').on('change', '#CompanyId', function () {
     $(document).ready(function () { Listele() });
 });
+
+
+
+$('#updateAmountAdmin').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    console.log("lkasfvls")
+    tables = datatable.row($(this))
+    var recipient = tables['context'][0]['aoData'][0]['_aData']['DepartmentName']
+    var amount = tables['context'][0]['aoData'][0]['_aData']['Kontenjan']
+    var companyId = $('#CompanyId').val();
+    var modal = $(this)
+    console.log(recipient)
+    modal.find('#ModalDepartmentName').val(recipient)
+    modal.find('#ModalAmount').val(amount);
+    modal.find('#recipient-name').val(companyId)
+})

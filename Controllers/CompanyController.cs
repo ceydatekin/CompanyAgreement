@@ -1,5 +1,6 @@
 ﻿using CompanyAgreement.Helper;
 using CompanyAgreement.Manager;
+using CompanyAgreement.Models;
 using CompanyAgreement.modelview;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -197,7 +198,7 @@ namespace CompanyAgreement.Controllers
             }
             catch (Exception)
             {
-                companyDepartmantManager.GetObject(1, departmantManager.FindDepartmentNameId(model.ModalDepartmentName), model.ModalAmount);
+                companyDepartmantManager.GetObject((int)sessionHelper.Getid("UserCompanyId"), departmantManager.FindDepartmentNameId(model.ModalDepartmentName), model.ModalAmount);
             }
 
             return JsonConvert.SerializeObject(new { success = true, message = "Tebrikler" });
@@ -215,7 +216,7 @@ namespace CompanyAgreement.Controllers
         [Route("API/quotaListCompany")]
         public string QuotaList()
         {
-            var companies = companyDepartmantManager.GetAllDepartment(1);
+            var companies = companyDepartmantManager.GetAllDepartment((int)sessionHelper.Getid("UserCompanyId"));
             var list = (from _company in companies
                         select new
                         {

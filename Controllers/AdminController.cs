@@ -223,6 +223,38 @@ namespace CompanyAgreement.Controllers
             return amount;
         }
 
+
+        [HttpPost]
+        [Route("API/UpdateQuotaAdmin")]
+        public string updateQuota([FromForm] updateQuotaModel model)
+        {
+            try
+            {
+                companyDepartmantManager.Insert(new Models.CompanyDepartment()
+                {
+                    CompanyId = model.CompanyId,
+                    DepartmentId = departmantManager.FindDepartmentNameId(model.ModalDepartmentName),
+                    Amount = model.ModalAmount,
+                });
+            }
+            catch (Exception)
+            {
+                companyDepartmantManager.GetObject(model.CompanyId, departmantManager.FindDepartmentNameId(model.ModalDepartmentName), model.ModalAmount);
+                //companyDepartmantManager.GetObject()
+            }
+
+            return JsonConvert.SerializeObject(new { success = true, message = "Tebrikler" });
+
+        }
+
+        public class updateQuotaModel
+        {
+            public int CompanyId { get; set; }
+            public string ModalDepartmentName { get; set; }
+            public int ModalAmount { get; set; }
+
+
+        }
         #endregion
 
         #region 

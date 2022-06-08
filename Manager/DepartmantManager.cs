@@ -11,7 +11,7 @@ namespace CompanyAgreement.Manager
     {
         Context contextManager = ContextManager.GetContext();
         public Department GetId(int departmantId) => contextManager.Departments.SingleOrDefault(s => s.Id == departmantId);
-        public int FindDepartmentNameId(string departmantName) => contextManager.Departments.SingleOrDefault(s => s.DepartmentName == departmantName).Id;
+        public int FindDepartmentNameId(string departmantName) => contextManager.Departments.FirstOrDefault(s => s.DepartmentName == departmantName).Id;
         public List<Department> AllDepartments() => this.contextManager.Departments.ToList();
 
     }
