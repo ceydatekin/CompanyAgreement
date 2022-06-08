@@ -37,10 +37,6 @@
 
 $('body').on('click', '#logout', function () {
 
-
-
-
-
     $.ajax({
         url: '/API/CompanyLogout',
         method: 'post',
