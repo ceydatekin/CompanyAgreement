@@ -106,8 +106,9 @@ namespace CompanyAgreement.Controllers
                 companyInformationManager.AddCompanyInformation(model.CompanyInformation_mail, model.CompanyInformation_GSM, model.CompanyInformation_Name, model.CompanyInformation_Surname);
                 int CompanyInformationId = companyInformationManager.GetById1(model.CompanyInformation_Name, model.CompanyInformation_Surname, model.CompanyInformation_mail).Id;
                 companyManager.AddCompany(model.CompanyName, model.MeetingDate, model.PublicPrivate, CompanyInformationId);
-                contractInformationManager.addContractInformation(model.ContractInformation_Mail, model.ContractInformation_Gsm, model.ContractInformation_Adress, model.ContractInformation_Province, model.ContractInformation_District);
+               
                 int CompanyId = companyManager.GetById1(model.CompanyName, model.MeetingDate).Id;
+                contractInformationManager.addContractInformation(model.ContractInformation_Mail, model.ContractInformation_Gsm, model.ContractInformation_Adress, model.ContractInformation_Province, model.ContractInformation_District, CompanyId);
                 cantractSituationManager.AddContractSituation(model.Situations, model.Description, CompanyId);
                 return JsonConvert.SerializeObject(new { success = true, message = "Tebrikler" });
             }
@@ -143,7 +144,7 @@ namespace CompanyAgreement.Controllers
             {
                 return RedirectToAction("AcademicianLogin");
             }
-            var companyDepartmentList = companyDepartmantManager.GetAcademicianCompany( (int)sessionHelper.Getid("UserAcademicianId")).ToList();
+            var companyDepartmentList = companyDepartmantManager.GetAcademicianCompany( (int)sessionHelper.Getid("AcademicianDepartment")).ToList();
 
             List<Company> companyList = new List<Company>();
             List<CompanyInformation> companyInformation = new List<CompanyInformation>();
@@ -203,7 +204,7 @@ namespace CompanyAgreement.Controllers
                 return RedirectToAction("AcademicianLogin");
             }
             var addQuotaViewModel = new AddQuotaViewModel();
-            var companyDepartmentList = companyDepartmantManager.GetAcademicianCompany((int)sessionHelper.Getid("UserAcademicianId")).ToList();
+            var companyDepartmentList = companyDepartmantManager.GetAcademicianCompany((int)sessionHelper.Getid("AcademicianDepartment")).ToList();
             List<Company> companyList = new List<Company>();
             companyDepartmentList.ForEach(item => companyList.Add(companyManager.GetId(item.CompanyId)));
 

@@ -124,12 +124,27 @@ function Listele() {
 
             });
         }
-    });
+    }); 
 };
 
 
+$('#updateAmount body').on('click', 'tr', function () {
+    var id = this.id;
+    var index = $.inArray(id, selected);
+
+    if (index === -1) {
+        selected.push(id);
+    } else {
+        selected.splice(index, 1);
+    }
+
+    $(this).toggleClass('selected');
+});
+
 $('#updateAmount').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget)
+
+    console.log(datatable.row($(this)))
+    var button = $()
     console.log("lkasfvls")
     tables = datatable.row($(this))
     var recipient = tables['context'][0]['aoData'][0]['_aData']['DepartmentName']
