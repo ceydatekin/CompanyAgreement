@@ -27,7 +27,7 @@ namespace CompanyAgreement.Manager
             return amount.Amount;
         }
         public List<CompanyDepartment> GetAcademicianCompany(int departmentId) => contextManager.CompanyDepartments.Where(s =>  s.DepartmentId == departmentId).ToList();
-
+        public CompanyDepartment deneme(int id) => contextManager.CompanyDepartments.SingleOrDefault(item => item.DepartmentId == id); // departmet id yerine private key kullan
         public List<CompanyDepartment> GetAllDepartment(int companyId)
         {
             var companies = contextManager.CompanyDepartments.Where(s => s.CompanyId == companyId).ToList();

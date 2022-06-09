@@ -204,6 +204,35 @@ namespace CompanyAgreement.Controllers
 
         }
 
+
+        [HttpPost]
+        [Route("API/openModal")]
+        public string openModal(string getDepartmant, int ID)
+        {
+            var companies = companyDepartmantManager.GetAllDepartment(1);
+            var list = (from _company in companies
+                        where _company.DepartmentId == ID
+                        select new
+                        {
+                            DepartmentName = _company.Department.DepartmentName,
+                            Kontenjan = _company.Amount,
+                            departmantID = _company.DepartmentId,
+
+                        }).ToList();
+          
+            if (getDepartmant == "OK") {
+                
+                return JsonConvert.SerializeObject(new { status = true, message = "Veri başarayıla getirildi.", data = list });
+
+            } else
+            {
+                return JsonConvert.SerializeObject(new { status = false, message = "Bilinmeyen istek." });
+            }
+
+
+        }
+ 
+
         public class updateQuotaModel
         {
             public string ModalDepartmentName { get; set; }
@@ -220,7 +249,8 @@ namespace CompanyAgreement.Controllers
                         select new
                         {
                             DepartmentName = _company.Department.DepartmentName,
-                            Kontenjan = _company.Amount
+                            Kontenjan = _company.Amount,
+                            departmantID = _company.DepartmentId,                           
 
                         }).ToList();
             return JsonConvert.SerializeObject(new { success = true, message = "Tebirkler", data = list });
