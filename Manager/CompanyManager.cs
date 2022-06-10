@@ -13,7 +13,6 @@ namespace CompanyAgreement.Manager
     {
 
         Context contextManager = ContextManager.GetContext();
-        //  public IEnumerable<Company> Find(Expression<Func<Company, bool>> predicate) => this.contextManager.Companies.Where().ToList();
         public Company GetById1(string CompanyName, DateTime MeetingDate) => contextManager.Companies.SingleOrDefault(i => i.CompanyName == CompanyName && i.MeetingDate == MeetingDate);
         public void AddCompany(string CompanyName, DateTime MeetingDate, bool PublicPrivate, int CompanyInformationId)
         {
@@ -27,17 +26,22 @@ namespace CompanyAgreement.Manager
 
             });
         }
-       //company id ye göre companynin sahip olduğu departmanların listelenmesi (modal kısmını açmadan önce listeleme sayfasında olması gereken veriler
-       //örn diniz holding psikoloji kontenjan: 3)
-        //public List<Company> DepartmentListForCompany(int companyId)
-        //{
 
-        //    //DepartmantManager departmantManager = new DepartmantManager();  
-        //    //return departmantManager.AllDepartments().Include(companyId).ToList();   
-        //}
-        public Company GetId(int companyId) => contextManager.Companies.SingleOrDefault(s => s.Id == companyId);
+        public Company GetId(int companyId) => contextManager.Companies.FirstOrDefault(s => s.Id == companyId);
      
         public List<Company> AllCompanies() => contextManager.Companies.ToList();
+
+
+
+        //public void GetObject(int companyId, int departmentId, int amount)
+        //{
+        //    var cDepartment = contextManager.CompanyDepartments.SingleOrDefault(s => s.CompanyId == companyId && s.DepartmentId == departmentId);
+        //    cDepartment.Amount = amount;
+        //    cDepartment.DepartmentId = departmentId;
+        //    cDepartment.CompanyId = companyId;
+        //    Delete(cDepartment);
+        //    Update(cDepartment);
+        //}
 
 
 
