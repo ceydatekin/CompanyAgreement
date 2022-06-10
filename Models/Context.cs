@@ -13,7 +13,7 @@ namespace CompanyAgreement.Models
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(
-                "Server=DESKTOP-JLIGHCN;Database=CompanyAggrementContext;Trusted_Connection=True;MultipleActiveResultSets=true"); //for local use
+                "Server=EIMEP01;Database=CompanyAggrementContext;Trusted_Connection=True;MultipleActiveResultSets=true"); //for local use
             }
         }
         public DbSet<Company> Companies { get; set; }
