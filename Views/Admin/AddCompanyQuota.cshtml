@@ -36,7 +36,7 @@
                                     </select>
 
                                 </div>
-                                 <button type="button" class="btn" data-toggle="modal" data-target="#selectQuota">Firmaya Bölüm Ekle </button>
+                                <button type="button" class="btn" data-toggle="modal" data-target="#selectQuota">Firmaya Bölüm Ekle </button>
 
                             </div>
                         </div>
@@ -120,40 +120,42 @@
 <div class="modal fade" tabindex="-1" role="dialog" id="updateAmountAdmin">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Kontenjan Ekleme</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <form id="quataForm">
+                <div class="modal-header">
 
-            </div>
-            <div class="modal-body">
+                    <h4 class="modal-title">Kontenjan Düzenleme</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-                <div class="row " style="margin:2px; padding:10px">
+                </div>
+                <div class="modal-body">
 
-                    <div class="input-group flex-nowrap col">
-                        <span class="input-group-text" id="addon-wrapping">Öğrenci Miktari</span>
-                        <input type="text" class="form-control" placeholder="Öğrenci Miktari" aria-describedby="addon-wrapping" id="ModalAmount">
+                    <div class="row " style="margin:2px; padding:10px">
 
+                        <div class="input-group flex-nowrap col">
+                            <span class="input-group-text" id="addon-wrapping">Öğrenci Miktari</span>
+                            <input type="text" class="form-control" placeholder="Öğrenci Miktari" aria-describedby="addon-wrapping" id="ModalAmount">
+
+                        </div>
                     </div>
-                </div>
-                <div class="row " style="margin:2px; padding:10px">
+                    <div class="row " style="margin:2px; padding:10px">
 
-                    <div class="input-group flex-nowrap col">
-                        <span class="input-group-text" id="addon-wrapping">Bölümü</span>
-                        <input type="text" class="form-control" id="ModalDepartmentName" disabled>
+                        <div class="input-group flex-nowrap col">
+                            <span class="input-group-text" id="addon-wrapping">Bölümü</span>
+                            <input type="text" class="form-control" id="ModalDepartmentName" disabled>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group" style="visibility : hidden">
-                    <input type="text" class="form-control" id="recipient-name">
-                </div>
+                    <div class="form-group" style="visibility : hidden">
+                        <input type="text" class="form-control" id="CompanyId">
+                    </div>
+            </form>
 
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+            <button type="button" class="btn btn-primary" id="CompanyUpdateQuoata">Güncelle</button>
+        </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
-                <button type="button" class="btn btn-primary" id="CompanyUpdateQuoata">Güncelle</button>
-            </div>
-
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
 </div>

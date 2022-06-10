@@ -159,7 +159,7 @@ namespace CompanyAgreement.Controllers
             }
             catch (Exception)
             {
-                companyDepartmantManager.GetObject(1, model.DepartmentId, model.Amount);
+                companyDepartmantManager.GetObject((int)sessionHelper.Getid("UserCompanyId"), model.DepartmentId, model.Amount);
             }
 
             return JsonConvert.SerializeObject(new { success = true, message = "Tebrikler" });
@@ -210,7 +210,7 @@ namespace CompanyAgreement.Controllers
         [Route("API/openModal")]
         public string openModal(string getDepartmant, int ID)
         {
-            var companies = companyDepartmantManager.GetAllDepartment(1);
+            var companies = companyDepartmantManager.GetAllDepartment((int)sessionHelper.Getid("UserCompanyId"));
             var list = (from _company in companies
                         where _company.DepartmentId == ID
                         select new

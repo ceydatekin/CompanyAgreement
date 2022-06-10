@@ -108,7 +108,7 @@ function Listele() {
                 columnDefs: [{
                     targets: 0,
                     render: function (data, type, full, meta) {
-                        return data+ 'asdasdasd';
+                        return data;
                     }
                 },
                     {
@@ -192,17 +192,17 @@ function getDepartmant(ID) {
     
 }
 
-$('body').on('click', '#deneme', function (event) {
-    tables = datatable.row($(this))
+//$('body').on('click', '#deneme', function (event) {
+//    tables = datatable.row($(this))
    
-    $('#SelectQuota tbody').on('click', 'tr', function () {
-       // console.log(tables.$('tr.selected').find("td").value)
-        d = tables.$('tr.selected')
-       // console.log(d.find("td").value)
-        console.log(d[0])
+//    $('#SelectQuota tbody').on('click', 'tr', function () {
+//       // console.log(tables.$('tr.selected').find("td").value)
+//        d = tables.$('tr.selected')
+//       // console.log(d.find("td").value)
+//        console.log(d[0])
 
-    });
-});
+//    });
+//});
 
 //var table = $('#SelectQuota').DataTable();
 
@@ -210,34 +210,34 @@ $('body').on('click', '#deneme', function (event) {
 //    console.log(table.row(this).data());
 //});
 
-$(document).ready(function () {
+//$(document).ready(function () {
 
 
-    //$("#deneme").on('click', function () {
-    //    var currentRow = $(this).closest("tr");
-    //    var coll = currentRow.
-    //});
+//    //$("#deneme").on('click', function () {
+//    //    var currentRow = $(this).closest("tr");
+//    //    var coll = currentRow.
+//    //});
 
-    var table = $('#SelectQuota').DataTable();
+//    var table = $('#SelectQuota').DataTable();
 
  
 
-    $('#SelectQuota tbody').on('click', 'tr', function () {
+//    $('#SelectQuota tbody').on('click', 'tr', function () {
 
-        var selection = table.$('tr.selected')[0]
-        /*        console.log(selection.p("td:nth-child(1)").value)*/
-        console.log(table.$('tr.selected')[0])
-        //console.log(table.$('tr.selected').data)
-        if ($(this).hasClass('selected')) {
-            $(this).removeClass('selected');
-        } else {
-            table.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        }
-    });
+//        var selection = table.$('tr.selected')[0]
+//        /*        console.log(selection.p("td:nth-child(1)").value)*/
+//        console.log(table.$('tr.selected')[0])
+//        //console.log(table.$('tr.selected').data)
+//        if ($(this).hasClass('selected')) {
+//            $(this).removeClass('selected');
+//        } else {
+//            table.$('tr.selected').removeClass('selected');
+//            $(this).addClass('selected');
+//        }
+//    });
 
 
-});
+//});
 
 //$('#updateAmount').on('show.bs.modal', function (event) {
 

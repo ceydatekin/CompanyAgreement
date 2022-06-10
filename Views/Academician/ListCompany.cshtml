@@ -2,7 +2,7 @@
 @model CompanyAgreement.modelview.AcademicianCompanyListViewModel
 @{
     ViewData["Title"] = "ListCompany";
-    Layout = "~/Views/Shared/_AcademicianLayout.cshtml";
+    Layout = "~/Views/Shared/_AcademicianListLayout.cshtml";
 }
 
 <div class="card">
@@ -55,7 +55,7 @@
                 <div class="col-sm-3" @*style="align-self: center; float: left text-align-last: center;"*@>
                     <label></label>
                     <div class="form-group">
-                        <button style="height:45px" type="button" id="companyadd" class="btn btn-info  swalDefaultInfo">
+                        <button style="height:45px" type="button" id="filterCompanyAcademician" class="btn btn-info  swalDefaultInfo">
                             Filtrele
                         </button>
                     </div>
@@ -70,14 +70,13 @@
 
     <!-- select -->
     <!-- /.card-header -->
-    <div class="card-body">
-        <table id="example1" class="table table-bordered table-striped">
+    <div>
+        <table id="CompanyListAcademician" class="table table-striped table-hover ">
             <thead>
                 <tr>
                     <th>Firma Adı</th>
                     <th>Kamu/Özel Durumu</th>
                     <th>Anlaşma Durumu</th>
-                    @*  <th>Açılan Kontenjan</th>*@
                     <th>Görüşme Tarihi</th>
                     <th>İlgili Kişi</th>
                     <th>Bulunduğu İl</th>
@@ -85,30 +84,6 @@
                 </tr>
             </thead>
 
-
-            <tbody>
-
-                @for (int i = 0; i < Model.Company.Count; i++)
-                {
-                    <tr>
-                        <td>@Model.Company[i].CompanyName</td>
-                        @if (@Model.Company[i].PublicPrivate)
-                        {
-                            <td>Özel</td>
-                        }
-                        else
-                        {
-                            <td>Kamu</td>
-                        }
-                        <td>@Model.ContractSituation[i].Situation </td>
-                        <td>@Model.Company[i].MeetingDate</td>
-                        <td>@Model.CompanyInformation[i].Name  @Model.CompanyInformation[i].Surname</td>
-                        <td>@Model.ContractInformation[i].Province / @Model.ContractInformation[i].District </td>
-
-                    </tr>
-                }
-
-            </tbody>
 
         </table>
     </div>
