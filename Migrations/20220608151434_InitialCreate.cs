@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CompanyAgreement.Migrations
 {
-    public partial class initialcreate : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -126,7 +126,7 @@ namespace CompanyAgreement.Migrations
                 {
                     DepartmentId = table.Column<int>(type: "int", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    CompanyDepartmentId = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -157,7 +157,7 @@ namespace CompanyAgreement.Migrations
                     Address = table.Column<string>(type: "Varchar(300)", maxLength: 300, nullable: true),
                     Province = table.Column<string>(type: "Varchar(20)", maxLength: 20, nullable: true),
                     District = table.Column<string>(type: "Varchar(20)", maxLength: 20, nullable: true),
-                    CompanyId = table.Column<int>(type: "int", nullable: true)
+                    CompanyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -167,7 +167,7 @@ namespace CompanyAgreement.Migrations
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

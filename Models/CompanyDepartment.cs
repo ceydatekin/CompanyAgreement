@@ -7,7 +7,7 @@ namespace CompanyAgreement.Models
     {
        
         [Key]
-        public int Id { get; set; }
+        public int CompanyDepartmentId { get; set; }
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
         public int CompanyId { get; set; }

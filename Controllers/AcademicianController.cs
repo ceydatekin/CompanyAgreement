@@ -106,8 +106,9 @@ namespace CompanyAgreement.Controllers
                 companyInformationManager.AddCompanyInformation(model.CompanyInformation_mail, model.CompanyInformation_GSM, model.CompanyInformation_Name, model.CompanyInformation_Surname);
                 int CompanyInformationId = companyInformationManager.GetById1(model.CompanyInformation_Name, model.CompanyInformation_Surname, model.CompanyInformation_mail).Id;
                 companyManager.AddCompany(model.CompanyName, model.MeetingDate, model.PublicPrivate, CompanyInformationId);
-                contractInformationManager.addContractInformation(model.ContractInformation_Mail, model.ContractInformation_Gsm, model.ContractInformation_Adress, model.ContractInformation_Province, model.ContractInformation_District);
+               
                 int CompanyId = companyManager.GetById1(model.CompanyName, model.MeetingDate).Id;
+                contractInformationManager.addContractInformation(model.ContractInformation_Mail, model.ContractInformation_Gsm, model.ContractInformation_Adress, model.ContractInformation_Province, model.ContractInformation_District, CompanyId);
                 cantractSituationManager.AddContractSituation(model.Situations, model.Description, CompanyId);
                 return JsonConvert.SerializeObject(new { success = true, message = "Tebrikler" });
             }
@@ -143,7 +144,7 @@ namespace CompanyAgreement.Controllers
             {
                 return RedirectToAction("AcademicianLogin");
             }
-            var companyDepartmentList = companyDepartmantManager.GetAcademicianCompany( (int)sessionHelper.Getid("UserAcademicianId")).ToList();
+            var companyDepartmentList = companyDepartmantManager.GetAcademicianCompany( (int)sessionHelper.Getid("AcademicianDepartment")).ToList();
 
             List<Company> companyList = new List<Company>();
             List<CompanyInformation> companyInformation = new List<CompanyInformation>();
@@ -170,7 +171,192 @@ namespace CompanyAgreement.Controllers
             companyListViewModel.ContractInformation = contractInformation;
             return View(companyListViewModel);
         }
+
+        [HttpGet]
+        [Route("API/ListAcademicianCompany")]
+        public string listAdminCompany()
+        {
+            var companies = companyManager.GetAll();
+            var list = (from _company in companies
+                        select new
+                        {
+                            companyId = _company.Id,
+                            CompanyName = _company.CompanyName,
+                            PublicPrivate = _company.PublicPrivate ? "Özel" : "Kamu",
+                            Situation = _company.ContractSituation.Situation,
+                            MeetingDate = _company.MeetingDate,
+                            NameSurname = _company.CompanyInformation.Name + " " + _company.CompanyInformation.Surname,
+                            location = _company.ContractInformations.SingleOrDefault(x => x.Company == _company).Province + " / " + _company.ContractInformations.SingleOrDefault(x => x.Company == _company).District,
+                        }).ToList();
+            return JsonConvert.SerializeObject(new { success = true, message = "Tebirkler", data = list });
+        }
+
+        [HttpPost]
+        [Route("API/FilterCompanyAcademician")]
+        public string FilterCompany([FromForm] FilterModel model)
+        {
+
+            if (model.Situations == "space" && model.Location == "space" && model.PublicPrivate == "space")
+                return null;
+
+            if (model.Situations != "space")
+            {
+                var company = companyManager.GetAll();
+                var filterListSituations = (from _company in company
+                                            where _company.ContractSituation.Situation == model.Situations
+                                            select new
+                                            {
+                                                CompanyName = _company.CompanyName,
+                                                PublicPrivate = _company.PublicPrivate ? "Özel" : "Kamu",
+                                                Situation = _company.ContractSituation.Situation,
+                                                MeetingDate = _company.MeetingDate,
+                                                NameSurname = _company.CompanyInformation.Name + " " + _company.CompanyInformation.Surname,
+                                                location = _company.ContractInformations.SingleOrDefault(x => x.Company == _company).Province + " / " + _company.ContractInformations.SingleOrDefault(x => x.Company == _company).District,
+                                            }).ToList();
+
+                return JsonConvert.SerializeObject(new { success = true, message = "Tebirkler", data = filterListSituations });
+            }
+            if (model.Location != "space")
+            {
+                var company = companyManager.GetAll();
+                var filterListLocation = (from _company in company
+                                          where _company.ContractInformations.SingleOrDefault(x => x.Company == _company).Province == model.Location
+                                          select new
+                                          {
+                                              CompanyName = _company.CompanyName,
+                                              PublicPrivate = _company.PublicPrivate ? "Özel" : "Kamu",
+                                              Situation = _company.ContractSituation.Situation,
+                                              MeetingDate = _company.MeetingDate,
+                                              NameSurname = _company.CompanyInformation.Name + " " + _company.CompanyInformation.Surname,
+                                              location = _company.ContractInformations.SingleOrDefault(x => x.Company == _company).Province + " / " + _company.ContractInformations.SingleOrDefault(x => x.Company == _company).District,
+                                          }).ToList();
+
+                return JsonConvert.SerializeObject(new { success = true, message = "Tebirkler", data = filterListLocation });
+            }
+            if (model.PublicPrivate != "space")
+            {
+                bool PublicPrivate = model.PublicPrivate == "Özel" ? true : false;
+                var company = companyManager.GetAll();
+                var filterListPublicPrivate = (from _company in company
+                                               where _company.PublicPrivate == PublicPrivate
+                                               select new
+                                               {
+                                                   CompanyName = _company.CompanyName,
+                                                   PublicPrivate = _company.PublicPrivate ? "Özel" : "Kamu",
+                                                   Situation = _company.ContractSituation.Situation,
+                                                   MeetingDate = _company.MeetingDate,
+                                                   NameSurname = _company.CompanyInformation.Name + " " + _company.CompanyInformation.Surname,
+                                                   location = _company.ContractInformations.SingleOrDefault(x => x.Company == _company).Province + " / " + _company.ContractInformations.SingleOrDefault(x => x.Company == _company).District,
+                                               }).ToList();
+
+                return JsonConvert.SerializeObject(new { success = true, message = "Tebirkler", data = filterListPublicPrivate });
+            }
+
+            if (model.PublicPrivate != "space" && model.Location != "space")
+            {
+                bool PublicPrivate = model.PublicPrivate == "Özel" ? true : false;
+                var company = companyManager.GetAll();
+                var filterListPublicPrivate = (from _company in company
+                                               where _company.PublicPrivate == PublicPrivate
+                                               where _company.ContractInformations.SingleOrDefault(x => x.Company == _company).Province == model.Location
+                                               select new
+                                               {
+                                                   CompanyName = _company.CompanyName,
+                                                   PublicPrivate = _company.PublicPrivate ? "Özel" : "Kamu",
+                                                   Situation = _company.ContractSituation.Situation,
+                                                   MeetingDate = _company.MeetingDate,
+                                                   NameSurname = _company.CompanyInformation.Name + " " + _company.CompanyInformation.Surname,
+                                                   location = _company.ContractInformations.SingleOrDefault(x => x.Company == _company).Province + " / " + _company.ContractInformations.SingleOrDefault(x => x.Company == _company).District,
+                                               }).ToList();
+
+                return JsonConvert.SerializeObject(new { success = true, message = "Tebirkler", data = filterListPublicPrivate });
+            }
+            if (model.PublicPrivate != "space" && model.Situations != "space")
+            {
+                bool PublicPrivate = model.PublicPrivate == "Özel" ? true : false;
+                var company = companyManager.GetAll();
+                var filterListPublicPrivate = (from _company in company
+                                               where _company.PublicPrivate == PublicPrivate
+                                               where _company.ContractSituation.Situation == model.Situations
+                                               select new
+                                               {
+                                                   CompanyName = _company.CompanyName,
+                                                   PublicPrivate = _company.PublicPrivate ? "Özel" : "Kamu",
+                                                   Situation = _company.ContractSituation.Situation,
+                                                   MeetingDate = _company.MeetingDate,
+                                                   NameSurname = _company.CompanyInformation.Name + " " + _company.CompanyInformation.Surname,
+                                                   location = _company.ContractInformations.SingleOrDefault(x => x.Company == _company).Province + " / " + _company.ContractInformations.SingleOrDefault(x => x.Company == _company).District,
+                                               }).ToList();
+
+                return JsonConvert.SerializeObject(new { success = true, message = "Tebirkler", data = filterListPublicPrivate });
+            }
+            if (model.Location != "space" && model.Situations != "space")
+            {
+                bool PublicPrivate = model.PublicPrivate == "Özel" ? true : false;
+                var company = companyManager.GetAll();
+                var filterListPublicPrivate = (from _company in company
+                                               where _company.ContractInformations.SingleOrDefault(x => x.Company == _company).Province == model.Location
+                                               where _company.ContractSituation.Situation == model.Situations
+                                               select new
+                                               {
+                                                   CompanyName = _company.CompanyName,
+                                                   PublicPrivate = _company.PublicPrivate ? "Özel" : "Kamu",
+                                                   Situation = _company.ContractSituation.Situation,
+                                                   MeetingDate = _company.MeetingDate,
+                                                   NameSurname = _company.CompanyInformation.Name + " " + _company.CompanyInformation.Surname,
+                                                   location = _company.ContractInformations.SingleOrDefault(x => x.Company == _company).Province + " / " + _company.ContractInformations.SingleOrDefault(x => x.Company == _company).District,
+                                               }).ToList();
+
+                return JsonConvert.SerializeObject(new { success = true, message = "Tebirkler", data = filterListPublicPrivate });
+            }
+
+            if (model.Location != "space" && model.Situations != "space" && model.PublicPrivate != "space")
+            {
+                bool PublicPrivate = model.PublicPrivate == "Özel" ? true : false;
+                var company = companyManager.GetAll();
+                var filterListPublicPrivate = (from _company in company
+                                               where _company.PublicPrivate == PublicPrivate
+                                               where _company.ContractInformations.SingleOrDefault(x => x.Company == _company).Province == model.Location
+                                               where _company.ContractSituation.Situation == model.Situations
+                                               select new
+                                               {
+                                                   CompanyName = _company.CompanyName,
+                                                   PublicPrivate = _company.PublicPrivate ? "Özel" : "Kamu",
+                                                   Situation = _company.ContractSituation.Situation,
+                                                   MeetingDate = _company.MeetingDate,
+                                                   NameSurname = _company.CompanyInformation.Name + " " + _company.CompanyInformation.Surname,
+                                                   location = _company.ContractInformations.SingleOrDefault(x => x.Company == _company).Province + " / " + _company.ContractInformations.SingleOrDefault(x => x.Company == _company).District,
+                                               }).ToList();
+
+                return JsonConvert.SerializeObject(new { success = true, message = "Tebirkler", data = filterListPublicPrivate });
+            }
+
+            var companies = companyManager.GetAll();
+            var list = (from _company in companies
+                        select new
+                        {
+                            CompanyName = _company.CompanyName,
+                            PublicPrivate = _company.PublicPrivate ? "Özel" : "Kamu",
+                            Situation = _company.ContractSituation.Situation,
+                            MeetingDate = _company.MeetingDate,
+                            NameSurname = _company.CompanyInformation.Name + " " + _company.CompanyInformation.Surname,
+                            location = _company.ContractInformations.SingleOrDefault(x => x.Company == _company).Province + " / " + _company.ContractInformations.SingleOrDefault(x => x.Company == _company).District,
+                        }).ToList();
+            return JsonConvert.SerializeObject(new { success = true, message = "Tebirkler", data = list });
+
+        }
+
+        public class FilterModel
+        {
+            public string Situations { get; set; }
+            public string Location { get; set; }
+            public string PublicPrivate { get; set; }
+        }
+
+
         #endregion
+
+
 
         #region Firma Kontenjan Ekleme
         //Firma Kontenjan Ekleme
@@ -203,7 +389,7 @@ namespace CompanyAgreement.Controllers
                 return RedirectToAction("AcademicianLogin");
             }
             var addQuotaViewModel = new AddQuotaViewModel();
-            var companyDepartmentList = companyDepartmantManager.GetAcademicianCompany((int)sessionHelper.Getid("UserAcademicianId")).ToList();
+            var companyDepartmentList = companyDepartmantManager.GetAcademicianCompany((int)sessionHelper.Getid("AcademicianDepartment")).ToList();
             List<Company> companyList = new List<Company>();
             companyDepartmentList.ForEach(item => companyList.Add(companyManager.GetId(item.CompanyId)));
 
@@ -233,7 +419,8 @@ namespace CompanyAgreement.Controllers
                         select new
                         {
                             DepartmentName = _company.Department.DepartmentName,
-                            Kontenjan = _company.Amount
+                            Kontenjan = _company.Amount,
+                            departmantID = _company.DepartmentId,
 
                         }).ToList();
             return JsonConvert.SerializeObject(new { success = true, message = "Tebirkler", data = list });
@@ -246,6 +433,70 @@ namespace CompanyAgreement.Controllers
             var amount = companyDepartmantManager.GetId(companyId, departmentId);
 
             return amount;
+        }
+
+
+        [HttpPost]
+        [Route("API/UpdateQuotaAcademician")]
+        public string updateQuota([FromForm] updateQuotaModel model)
+        {
+            try
+            {
+                companyDepartmantManager.Insert(new Models.CompanyDepartment()
+                {
+                    CompanyId = model.CompanyId,
+                    DepartmentId = departmantManager.FindDepartmentNameId(model.ModalDepartmentName),
+                    Amount = model.ModalAmount,
+                });
+            }
+            catch (Exception)
+            {
+                companyDepartmantManager.GetObject(model.CompanyId, departmantManager.FindDepartmentNameId(model.ModalDepartmentName), model.ModalAmount);
+                //companyDepartmantManager.GetObject()
+            }
+
+            return JsonConvert.SerializeObject(new { success = true, message = "Tebrikler" });
+
+        }
+
+
+        [HttpPost]
+        [Route("API/openModalAcademician")]
+        public string openModal(string getDepartmant, int ID, int companyId)
+        {
+            var companies = companyDepartmantManager.GetAllDepartment(companyId);
+            var list = (from _company in companies
+                        where _company.DepartmentId == ID
+                        select new
+                        {
+                            CompanyId = _company.CompanyId,
+                            DepartmentName = _company.Department.DepartmentName,
+                            Kontenjan = _company.Amount,
+                            departmantID = _company.DepartmentId,
+
+                        }).ToList();
+
+            if (getDepartmant == "OK")
+            {
+
+                return JsonConvert.SerializeObject(new { status = true, message = "Veri başarayıla getirildi.", data = list });
+
+            }
+            else
+            {
+                return JsonConvert.SerializeObject(new { status = false, message = "Bilinmeyen istek." });
+            }
+
+
+        }
+
+        public class updateQuotaModel
+        {
+            public int CompanyId { get; set; }
+            public string ModalDepartmentName { get; set; }
+            public int ModalAmount { get; set; }
+
+
         }
 
         #endregion

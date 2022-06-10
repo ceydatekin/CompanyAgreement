@@ -1,0 +1,61 @@
+﻿@model CompanyAgreement.modelview.AddQuotaViewModel
+@{
+    ViewData["Title"] = "AssignmentAcademician";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <div class="card card-secondary">
+            <div class="card-header">
+                <h3 class="card-title">Akademisyen Görev Atama</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+
+                            <div class="form-group">
+                                 <label>Kullanıcı Adı</label>
+                                <input class="form-control" id="Name" type="text" placeholder="Kullanıcı Adı">
+                                <br>
+                                <label>Kullanıcı Soyadı</label>
+                                <input class="form-control" id="Surname" type="text" placeholder="Kullanıcı Soyadı">
+                                <br>
+                                <label>Mail Adresi</label>
+                                <input class="form-control" id="UserName" type="text" placeholder="Kullanıcı Maili">
+                                <br>
+                                <div class="form-group">
+                                    <label>Bölümü Seçiniz</label>
+                                    <select id="DepartmentId" class="custom-select">
+                                        <option value="-1">Seçiniz</option>
+                                        @foreach (var item in Model.Departments)
+                                        {
+                                            <option value="@item.Id">@item.DepartmentName</option>
+                                        }
+                                    </select>
+
+                                </div>
+                   
+                                <button type="button" id="AsigmentPassword" class="btn btn-info swalAcademician">
+                                   Şifre Gönder
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+        </div>
+
+</section>
+

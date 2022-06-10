@@ -1,0 +1,112 @@
+﻿@model CompanyAgreement.modelview.CompanyQuotaViewModel
+@{
+    ViewData["Title"] = "AddCompanyQuota";
+    Layout = "~/Views/Shared/_CompanyLayout.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <div class="card card-secondary">
+            <div class="card-header">
+                <h3 class="card-title">Kontenjan Ekleme</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+
+                            <div class="form-group">
+
+                                <div class="form-group">
+                                    <label>Bölümü Seçiniz</label>
+                                    <select id="DepartmentId" class="custom-select">
+                                        <option value="-1">Seçiniz</option>
+                                        @foreach (var item in Model.Departments)
+                                        {
+                                            <option value="@item.Id">@item.DepartmentName</option>
+                                        }
+                                    </select>
+
+                                </div>
+                                <br>
+                                <input class="form-control" id="Amount" type="text" placeholder="Kontenjan Sayısını Giriniz">
+                                <br>
+                                <button type="button" id="CompanyAddQuota" class="btn btn-info swalDefaultInfo">
+                                    Kontenjan Ekle
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+        </div>
+
+</section>
+
+<section class="content">
+
+
+    <div>
+        <table id="SelectQuota" class="table table-striped table-hover ">
+            <thead>
+                <tr>
+                    <th>Bölüm</th>
+                    <th>Kontenjan</th>
+                    <th>Düzenle</th>
+
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+</section>
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="updateAmount">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="quataForm" >
+            <div class="modal-header">
+                <h4 class="modal-title">Kontenjan Düzenleme</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+            </div>
+            <div class="modal-body">
+
+                <div class="row " style="margin:2px; padding:10px">
+
+                    <div class="input-group flex-nowrap col">
+                        <span class="input-group-text" id="addon-wrapping">Öğrenci Miktari</span>
+                        <input type="text" class="form-control" placeholder="Öğrenci Miktari" aria-describedby="addon-wrapping" id="ModalAmount">
+
+                    </div>
+                </div>
+                <div class="row " style="margin:2px; padding:10px">
+
+                    <div class="input-group flex-nowrap col">
+                        <span class="input-group-text" id="addon-wrapping">Bölümü</span>
+                        <input type="text" class="form-control" id="ModalDepartmentName" disabled>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" id="CompanyUpdateQuoata">Güncelle</button>
+            </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

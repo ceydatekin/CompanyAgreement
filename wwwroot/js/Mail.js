@@ -1,18 +1,20 @@
 ﻿
-$('body').on('click', '#companyadd', function () {
+$('body').on('click', '#AsigmentPassword', function () {
 
-    var CompanyAuthority_SGKNO = $('#CompanyAuthority_SGKNO').val();
-    var CompanyAuthority_TaxNumber = $('#CompanyAuthority_TaxNumber').val();
-    var CompanyAuthority_ContractDate = $('#CompanyAuthority_ContractDate').val();
+    var Name = $('#Name').val();
+    var Surname = $('#Surname').val();
+    var UserName = $('#UserName').val();
+    var DepartmentId = $('#DepartmentId').val();
+
     var formdata = new FormData();
-    formdata.append('CompanyAuthority_SGKNO', CompanyAuthority_SGKNO);
-    formdata.append('CompanyAuthority_TaxNumber', CompanyAuthority_TaxNumber);
-    formdata.append('CompanyAuthority_ContractDate', CompanyAuthority_ContractDate);
 
+    formdata.append('Name', Name);
+    formdata.append('Surname', Surname);
+    formdata.append('UserName', UserName);
+    formdata.append('DepartmentId', DepartmentId);
 
-    console.log("eklemei is şladmlas")
     $.ajax({
-        url: '/API/CompanyPage',
+        url: '/API/mailSend',
         method: 'post',
         data: formdata,
         processData: false,
@@ -24,6 +26,7 @@ $('body').on('click', '#companyadd', function () {
             if (jsonResp.success == true) {
                 console.log("başarılı")
                 setTimeout("window.location.reload(true);", 1000);
+
             }
 
             else if (jsonResp.success == false)
@@ -34,6 +37,3 @@ $('body').on('click', '#companyadd', function () {
         }
     });
 });
-
-
-

@@ -1,17 +1,20 @@
 ﻿
-$('body').on('click', '#quotaAdd', function () {
+$(document).ready(function () { Listele() });
 
-    var CompanyId = $('#recipient-name').val();
-    var DepartmentId = $('#Department').val();
+
+$('body').on('click', '#CompanyAddQuota', function () {
+
+
+    var DepartmentId = $('#DepartmentId').val();
     var Amount = $('#Amount').val();
 
     var formdata = new FormData();
-    formdata.append('CompanyId', CompanyId);
+
     formdata.append('DepartmentId', DepartmentId);
     formdata.append('Amount', Amount);
 
     $.ajax({
-        url: '/API/AddQuotaAcademician',
+        url: '/API/AddQuotaCompany',
         method: 'post',
         data: formdata,
         processData: false,
@@ -22,7 +25,6 @@ $('body').on('click', '#quotaAdd', function () {
             console.log(jsonResp)
             if (jsonResp.success == true) {
                 console.log("başarılı")
-                $('#selectQuota').modal('hide')
                 $(document).ready(function () { Listele() });
             }
 
@@ -37,17 +39,17 @@ $('body').on('click', '#quotaAdd', function () {
 
 
 $('body').on('click', '#CompanyUpdateQuoata', function () {
-    var CompanyId = $('#CompanyId').val();
+
     var ModalDepartmentName = $('#ModalDepartmentName').val();
     var ModalAmount = $('#ModalAmount').val();
 
     var formdata = new FormData();
-    formdata.append('CompanyId', CompanyId);
+
     formdata.append('ModalDepartmentName', ModalDepartmentName);
     formdata.append('ModalAmount', ModalAmount);
 
     $.ajax({
-        url: '/API/UpdateQuotaAcademician',
+        url: '/API/UpdateQuota',
         method: 'post',
         data: formdata,
         processData: false,
@@ -58,7 +60,6 @@ $('body').on('click', '#CompanyUpdateQuoata', function () {
             console.log(jsonResp)
             if (jsonResp.success == true) {
                 console.log("başarılı")
-                $('#updateAmountAcademician').modal('hide')
                 $(document).ready(function () { Listele() });
             }
 
@@ -72,47 +73,11 @@ $('body').on('click', '#CompanyUpdateQuoata', function () {
 });
 
 
-
-$('#selectQuota').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget)
-    console.log("lkasfvls")
-    var recipient = $('#CompanyId').val();
-    var modal = $(this)
-    console.log(recipient)
-    modal.find('#recipient-name').val(recipient)
-})
-
-
-
-$('body').on('change', '#Department', function () {
-    var DepartmentId = $('#Department').val();
-    var CompanyId = $('#recipient-name').val();
-
-    console.log(DepartmentId)
-
-    $.ajax({
-        url: '/API/selectDepertmentAcademician',
-        type: 'GET',
-        contentType: 'json',
-        data: { companyId: CompanyId, departmentId: DepartmentId },
-        dataType: 'json',
-        success: function (resp) {
-            console.log(resp)
-            $('#Amount').val(resp)
-
-
-        }
-    });
-
-});
-
-
 var datatable;
 function Listele() {
-    var companyId = $('#CompanyId').val();
     $.ajax({
         type: 'GET',
-        url: '/API/quotaListAcademician?companyId=' + companyId,
+        url: '/API/quotaListCompany',
         contentType: "application/json; charset=utf-8",
         async: false,
         cache: false,
@@ -133,7 +98,7 @@ function Listele() {
                         data: "DepartmentName"
                     },
                     {
-                        data: "Kontenjan"
+                        data: "Kontenjan",
                     },
                     {
                         data: "departmantID",
@@ -146,33 +111,40 @@ function Listele() {
                         return data;
                     }
                 },
-                {
-                    targets: 1,
-                    render: function (data, type, full, meta) {
-                        return data;
-                    }
-                },
-                {
-                    targets: 2,
-                    render: function (data, type, full, meta) {
-                        return '<button style="border-width: inherit; border-color: white;" id="deneme" onclick="getDepartmant2(' + data + ',' + companyId + ')" class="fas fa-pen" />';
-                    }
-                },
-                ],
+                    {
+                        targets: 1,
+                        render: function (data, type, full, meta) {
+                            return data;
+                        }
+                    },
+                    {
+                        targets: 2,
+                        render: function (data, type, full, meta) {
+                            return '<button style="border-width: inherit; border-color: white;" id="deneme" onclick="getDepartmant(' + data + ')" class="fas fa-pen" />';
+                        }
+                    },
+                    ],
+
                 order: [[1, "asc"]],
                 colReorder: true,
                 scrollX: '50px',
                 select: {
-                    style: 'multi'
+                    style: 'single'
                 },
+                paginate: {
+                    first: "İlk",
+                    previous: "Önceki",
+                    next: "Sonraki",
+                    last: "Son",
+                },
+
             });
         }
     });
 };
 
-function getDepartmant2(ID, companyId) {
-    
-    $('#quataFormAcademician').trigger("reset");
+function getDepartmant(ID) {
+    $('#quataForm').trigger("reset");
 
     $.ajax({
         type: 'POST',
@@ -181,7 +153,7 @@ function getDepartmant2(ID, companyId) {
         cache: false,
         processData: false,
         dataType: "json",
-        url: '/API/openModalAcademician?getDepartmant=OK&ID=' + ID + '&companyId=' + companyId,
+        url: '/API/openModal?getDepartmant=OK&ID='+ ID,
         /*data: {
             ID: ID, getDepartmant: 'OK'
         },*/
@@ -203,8 +175,7 @@ function getDepartmant2(ID, companyId) {
                 //Swal.fire({ icon: 'success', title: 'Başarılı', text: respond.message, });
                 $('#ModalDepartmentName').val(respond.data[0].DepartmentName);
                 $('#ModalAmount').val(respond.data[0].Kontenjan);
-                $('#CompanyId').val(respond.data[0].CompanyId);
-                $('#updateAmountAcademician').modal('show');
+                $('#updateAmount').modal('show');
 
 
             }
@@ -218,10 +189,69 @@ function getDepartmant2(ID, companyId) {
             Swal.fire({ icon: 'error', title: 'Hata', text: 'Sistem hatası, sistem yöneticinizle görüşünüz.', });
         }
     });
-
+    
 }
-$('body').on('change', '#CompanyId', function () {
-    $(document).ready(function () { Listele() });
-});
+
+//$('body').on('click', '#deneme', function (event) {
+//    tables = datatable.row($(this))
+   
+//    $('#SelectQuota tbody').on('click', 'tr', function () {
+//       // console.log(tables.$('tr.selected').find("td").value)
+//        d = tables.$('tr.selected')
+//       // console.log(d.find("td").value)
+//        console.log(d[0])
+
+//    });
+//});
+
+//var table = $('#SelectQuota').DataTable();
+
+//$('#SelectQuota tbody').on('click', 'tr', function () {
+//    console.log(table.row(this).data());
+//});
+
+//$(document).ready(function () {
 
 
+//    //$("#deneme").on('click', function () {
+//    //    var currentRow = $(this).closest("tr");
+//    //    var coll = currentRow.
+//    //});
+
+//    var table = $('#SelectQuota').DataTable();
+
+ 
+
+//    $('#SelectQuota tbody').on('click', 'tr', function () {
+
+//        var selection = table.$('tr.selected')[0]
+//        /*        console.log(selection.p("td:nth-child(1)").value)*/
+//        console.log(table.$('tr.selected')[0])
+//        //console.log(table.$('tr.selected').data)
+//        if ($(this).hasClass('selected')) {
+//            $(this).removeClass('selected');
+//        } else {
+//            table.$('tr.selected').removeClass('selected');
+//            $(this).addClass('selected');
+//        }
+//    });
+
+
+//});
+
+//$('#updateAmount').on('show.bs.modal', function (event) {
+
+//    console.log(datatable.row($(this)))
+//    console.log("lkasfvls")
+//    tables = datatable.row($(this))
+//    d = tables.$('tr.selected')
+//   // console.log(tables.find("td:nth-child(1)").value)
+//    console.log(d.find("td").value)
+//    // console.log(document.getElementById('updateAmount'))
+//    var recipient = tables['context'][0]['aoData'][0]['_aData']['DepartmentName']
+//    var amount = tables['context'][0]['aoData'][0]['_aData']['Kontenjan']
+//    var modal = $(this)
+//    console.log(recipient)
+//    modal.find('#ModalDepartmentName').val(recipient)
+//    modal.find('#ModalAmount').val(amount);
+//});

@@ -7,14 +7,22 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Firma Bilgileri Paneli</title>
+    <title>Sektörel Eğitim Programı-Akademisyen Paneli</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="~/CompanyAggrementWeb/plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
+
+
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/dataTables.jqueryui.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.jqueryui.css" />
     <!-- Theme style -->
     <link rel="stylesheet" href="~/CompanyAggrementWeb/dist/css/adminlte.min.css">
 
@@ -56,29 +64,29 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="~/Company/Index" class="nav-link">Anasayfa</a>
+                    <a href="~/Admin/Index" class="nav-link">Anasayfa</a>
                 </li>
 
             </ul>
 
+
+
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-
+         
                 <li class="nav-item">
-
-                    <a class="nav-link" role="button" id="logout">
+                     <a class="nav-link"  role="button" id = "logout">
                         <i class="fas fa-window-close"></i>
                     </a>
 
                 </li>
-
             </ul>
         </nav>
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="~/CompanyAggrementWeb/index3.html" class="brand-link">
+            <a href="~/Admin/Index" class="brand-link">
                 <img src="~/CompanyAggrementWeb/dist/img/Bursa_Teknik_Üniversitesi_Logosu.png"
                      alt="Sektörel Eğitim Programı"
                      class="brand-image img-circle elevation-3"
@@ -97,15 +105,27 @@
 
 
                         <li class="nav-item">
-                            <a href="~/Company/Index" class="nav-link">
+                            <a href="~/Admin/Index" class="nav-link">
                                 <i class="nav-icon far fa-circle "></i>
                                 <p class="text">Firma Ekle</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="~/Company/AddCompanyQuota" class="nav-link">
+                            <a href="~/Admin/ListCompany" class="nav-link">
+                                <i class="nav-icon far fa-circle "></i>
+                                <p>Firma Listele</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="~/Admin/AddCompanyQuota" class="nav-link">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Firma Kontenjan Güncelle</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="~/Admin/AssignmentAcademician" class="nav-link">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>Akademisyen Atama</p>
                             </a>
                         </li>
 
@@ -135,6 +155,7 @@
     <!-- ./wrapper -->
     <!-- jQuery -->
     <script src="~/CompanyAggrementWeb/plugins/jquery/jquery.min.js"></script>
+    
     <!-- Bootstrap 4 -->
     <script src="~/CompanyAggrementWeb/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
@@ -148,6 +169,7 @@
     <script src="~/CompanyAggrementWeb/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="~/CompanyAggrementWeb/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <script src="~/js/AdminQuota.js" asp-append-version="true"></script>
+    <script src="~/js/OidbLogin.js" asp-append-version="true"></script>
     <!-- Select2 -->
     <script src="~/CompanyAggrementWeb/plugins/select2/js/select2.full.min.js"></script>
     <script src="~/CompanyAggrementWeb/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
@@ -165,12 +187,36 @@
     <script src="~/CompanyAggrementWeb/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/CompanyAggrementWeb/dist/js/demo.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/jquery-3.5.1.js">
+    <script type="text/javascript" src=""></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/dataTables.jqueryui.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.jqueryui.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
 
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.bootstrap4.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
     <!-- SweetAlert2 -->
     <script src="~/CompanyAggrementWeb/plugins/sweetalert2/sweetalert2.min.js"></script>
     <!-- Toastr -->
     <script src="~/CompanyAggrementWeb/plugins/toastr/toastr.min.js"></script>
-    <script src="~/js/CompanyIndex.js"></script>
+    <script src="~/js/AdminIndex.js"></script>
+    <script src="~/js/OidbLogin.js"></script>
+    <script src="~/js/AdminList.js"></script>
     <script>
         $(function () {
           //Initialize Select2 Elements

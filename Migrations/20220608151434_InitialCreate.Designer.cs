@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CompanyAgreement.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220510204427_initialcreate")]
-    partial class initialcreate
+    [Migration("20220608151434_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -134,7 +134,7 @@ namespace CompanyAgreement.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
+                    b.Property<int>("CompanyDepartmentId")
                         .HasColumnType("int");
 
                     b.HasKey("DepartmentId", "CompanyId");
@@ -204,7 +204,7 @@ namespace CompanyAgreement.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("Varchar(300)");
 
-                    b.Property<int?>("CompanyId")
+                    b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<string>("District")
@@ -303,7 +303,9 @@ namespace CompanyAgreement.Migrations
                 {
                     b.HasOne("CompanyAgreement.Models.Company", "Company")
                         .WithMany("ContractInformations")
-                        .HasForeignKey("CompanyId");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Company");
                 });
