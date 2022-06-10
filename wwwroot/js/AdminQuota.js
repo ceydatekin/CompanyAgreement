@@ -1,5 +1,4 @@
-﻿
-$('body').on('click', '#quotaAdd', function () {
+﻿$('body').on('click', '#quotaAdd', function () {
 
     var CompanyId = $('#recipient-name').val();
     var DepartmentId = $('#Department').val();

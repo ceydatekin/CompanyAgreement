@@ -1,6 +1,9 @@
 ﻿$(document).ready(function () { ShowList() });
 
 var datatable;
+
+
+
 function ShowList() {
     $.ajax({
         type: 'GET',
@@ -21,6 +24,13 @@ function ShowList() {
                 ordering: true,
 
                 data: resp.data,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ],
                 columns: [
                     {
                         data: "CompanyName"
@@ -86,6 +96,22 @@ function ShowList() {
                     }
                 },
                 ],
+                dom: 'Bfrtip',
+                buttons: [{
+                    extend: 'excel',
+                    text: 'Excel',
+                    customData: function (exceldata) {
+                        exportExtension = 'Excel';
+                        return exceldata;
+                    }
+                }, {
+                    extend: 'csv',
+                    text: 'CSV',
+                    customData: function (cvsdata) {
+                        exportExtension = 'CSV';
+                        return cvsdata;
+                    }
+                }],
                 order: [[1, "asc"]],
                 colReorder: true,
                 scrollX: '50px',
